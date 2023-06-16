@@ -1,5 +1,6 @@
 package com.example.a2023_q2_elmirov.data.datasource
 
+import com.example.a2023_q2_elmirov.data.converter.AuthConverter
 import com.example.a2023_q2_elmirov.data.converter.UserConverter
 import com.example.a2023_q2_elmirov.data.network.api.LoansApi
 import com.example.a2023_q2_elmirov.domain.entity.Auth
@@ -14,13 +15,14 @@ interface AuthDataSource {
 }
 
 class AuthDataSourceImpl @Inject constructor(
-    private val converter: UserConverter,
+    private val userConverter: UserConverter,
+    private val authConverter: AuthConverter,
     private val api: LoansApi,
 ) : AuthDataSource {
 
     override suspend fun login(auth: Auth): String =
-        api.login(auth)
+        api.login(authConverter(auth))
 
     override suspend fun register(auth: Auth): User =
-        converter(api.register(auth))
+        userConverter(api.register(authConverter(auth)))
 }

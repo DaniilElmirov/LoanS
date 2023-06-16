@@ -15,13 +15,13 @@ class LoginUseCaseTest {
     private val useCase = LoginUseCase(repository)
 
     private val auth = Data.auth
-    private val bearer = Data.bearer
+    private val token = Data.token
 
     @Test
     fun `invoke EXPECT get bearer`() = runTest {
-        whenever(repository.login(auth)) doReturn bearer
+        whenever(repository.login(auth)) doReturn token
 
-        val expected = bearer
+        val expected = token
         val actual = useCase(auth)
 
         assertEquals(expected, actual)

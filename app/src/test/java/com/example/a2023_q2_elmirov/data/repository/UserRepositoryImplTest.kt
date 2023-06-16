@@ -15,16 +15,14 @@ class UserRepositoryImplTest {
     private val repository = UserRepositoryImpl(dataSource)
 
     private val auth = Data.auth
-    private val bearer = Data.bearer
+    private val token = Data.token
     private val user = Data.user
-
 
     @Test
     fun `login EXPECT get bearer`() = runTest {
+        whenever(dataSource.login(auth)) doReturn token
 
-        whenever(dataSource.login(auth)) doReturn bearer
-
-        val expected = bearer
+        val expected = token
         val actual = repository.login(auth)
 
         assertEquals(expected, actual)
