@@ -1,14 +1,20 @@
 package com.example.a2023_q2_elmirov.di.module
 
-import com.example.a2023_q2_elmirov.data.datasource.AuthDataSource
-import com.example.a2023_q2_elmirov.data.datasource.AuthDataSourceImpl
+import com.example.a2023_q2_elmirov.data.datasource.AuthRemoteDataSource
+import com.example.a2023_q2_elmirov.data.datasource.AuthRemoteDataSourceImpl
+import com.example.a2023_q2_elmirov.data.datasource.TokenLocalDataSource
+import com.example.a2023_q2_elmirov.data.datasource.TokenLocalDataSourceImpl
 import com.example.a2023_q2_elmirov.data.network.api.LoansApi
-import com.example.a2023_q2_elmirov.data.repository.UserRepositoryImpl
+import com.example.a2023_q2_elmirov.data.repository.TokenRepositoryImpl
+import com.example.a2023_q2_elmirov.data.repository.AuthRepositoryImpl
 import com.example.a2023_q2_elmirov.di.annotation.ApplicationScope
-import com.example.a2023_q2_elmirov.domain.repository.UserRepository
+import com.example.a2023_q2_elmirov.domain.repository.TokenRepository
+import com.example.a2023_q2_elmirov.domain.repository.AuthRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -42,13 +48,25 @@ interface DataModule {
         @ApplicationScope
         @Provides
         fun provideLoansApi(retrofit: Retrofit): LoansApi = retrofit.create()
+
+        @ApplicationScope
+        @Provides
+        fun provideDispatcherIo(): CoroutineDispatcher = Dispatchers.IO
     }
 
     @ApplicationScope
     @Binds
-    fun bindUserRepository(impl: UserRepositoryImpl): UserRepository
+    fun bindAuthRepository(impl: AuthRepositoryImpl): AuthRepository
 
     @ApplicationScope
     @Binds
-    fun bindAuthDataSource(impl: AuthDataSourceImpl): AuthDataSource
+    fun bindAuthRemoteDataSource(impl: AuthRemoteDataSourceImpl): AuthRemoteDataSource
+
+    @ApplicationScope
+    @Binds
+    fun bindTokenRepository(impl: TokenRepositoryImpl): TokenRepository
+
+    @ApplicationScope
+    @Binds
+    fun bindTokenLocalDataSource(impl: TokenLocalDataSourceImpl): TokenLocalDataSource
 }
