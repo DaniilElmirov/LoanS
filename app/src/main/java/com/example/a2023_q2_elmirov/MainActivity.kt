@@ -7,7 +7,7 @@ import com.example.a2023_q2_elmirov.domain.entity.Auth
 import com.example.a2023_q2_elmirov.domain.entity.LoanRequest
 import com.example.a2023_q2_elmirov.domain.repository.AuthRepository
 import com.example.a2023_q2_elmirov.domain.repository.LoanRepository
-import com.example.a2023_q2_elmirov.domain.usecase.LoginUseCase
+import com.example.a2023_q2_elmirov.domain.usecase.GetLoanConditionsUseCase
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -38,16 +38,12 @@ class MainActivity : AppCompatActivity() {
             "string"
         )
 
+        val token =
+            "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJEYW5paWwiLCJleHAiOjE2ODk1ODY5NDl9.OCwcJIq1PIOUXOwZcTCPesQ1fmcD4nufhSjqy0rwc6GnqY1DafzzXn4VlAEVWKcf94dETd-26XQ7ZU0ArRqGdA"
+
         GlobalScope.launch {
             try {
-                Log.d("TAG T", LoginUseCase(authRepository).invoke(auth))
-//                Log.d(
-//                    "TAG L",
-//                    CreateLoanUseCase(loanRepository)(
-//                        "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJEYW5paWwiLCJleHAiOjE2ODk1ODY5NDl9.OCwcJIq1PIOUXOwZcTCPesQ1fmcD4nufhSjqy0rwc6GnqY1DafzzXn4VlAEVWKcf94dETd-26XQ7ZU0ArRqGdA",
-//                        loanRequest
-//                    ).toString()
-//                )
+                Log.d("TAG C", GetLoanConditionsUseCase(loanRepository).invoke(token).toString())
             } catch (e: Exception) {
                 Log.d("TAG E", e.toString())
             }
