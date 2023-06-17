@@ -1,10 +1,13 @@
 package com.example.a2023_q2_elmirov.data.network.api
 
 import com.example.a2023_q2_elmirov.data.network.model.AuthModel
+import com.example.a2023_q2_elmirov.data.network.model.LoanModel
+import com.example.a2023_q2_elmirov.data.network.model.LoanRequestModel
 import com.example.a2023_q2_elmirov.data.network.model.UserModel
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface LoansApi {
@@ -13,4 +16,10 @@ interface LoansApi {
 
     @POST("registration")
     suspend fun register(@Body authModel: AuthModel): UserModel
+
+    @POST("loans")
+    suspend fun create(
+        @Header("Authorization") token: String,
+        @Body loanRequestModel: LoanRequestModel,
+    ): Response<LoanModel>
 }

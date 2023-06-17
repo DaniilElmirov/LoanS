@@ -23,11 +23,13 @@ class AuthRemoteDataSourceImpl @Inject constructor(
     private val dispatcherIo: CoroutineDispatcher,
 ) : AuthRemoteDataSource {
 
-    override suspend fun login(auth: Auth): String = withContext(dispatcherIo) {
-        api.login(authConverter(auth)).body()!!.string()
-    }
+    override suspend fun login(auth: Auth): String =
+        withContext(dispatcherIo) {
+            api.login(authConverter(auth)).body()!!.string()
+        }
 
-    override suspend fun register(auth: Auth): User = withContext(dispatcherIo) {
-        userConverter(api.register(authConverter(auth)))
-    }
+    override suspend fun register(auth: Auth): User =
+        withContext(dispatcherIo) {
+            userConverter(api.register(authConverter(auth)))
+        }
 }

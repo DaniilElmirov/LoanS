@@ -2,14 +2,18 @@ package com.example.a2023_q2_elmirov.di.module
 
 import com.example.a2023_q2_elmirov.data.datasource.AuthRemoteDataSource
 import com.example.a2023_q2_elmirov.data.datasource.AuthRemoteDataSourceImpl
+import com.example.a2023_q2_elmirov.data.datasource.LoanRemoteDataSource
+import com.example.a2023_q2_elmirov.data.datasource.LoanRemoteDataSourceImpl
 import com.example.a2023_q2_elmirov.data.datasource.TokenLocalDataSource
 import com.example.a2023_q2_elmirov.data.datasource.TokenLocalDataSourceImpl
 import com.example.a2023_q2_elmirov.data.network.api.LoansApi
-import com.example.a2023_q2_elmirov.data.repository.TokenRepositoryImpl
 import com.example.a2023_q2_elmirov.data.repository.AuthRepositoryImpl
+import com.example.a2023_q2_elmirov.data.repository.LoanRepositoryImpl
+import com.example.a2023_q2_elmirov.data.repository.TokenRepositoryImpl
 import com.example.a2023_q2_elmirov.di.annotation.ApplicationScope
-import com.example.a2023_q2_elmirov.domain.repository.TokenRepository
 import com.example.a2023_q2_elmirov.domain.repository.AuthRepository
+import com.example.a2023_q2_elmirov.domain.repository.LoanRepository
+import com.example.a2023_q2_elmirov.domain.repository.TokenRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -69,4 +73,12 @@ interface DataModule {
     @ApplicationScope
     @Binds
     fun bindTokenLocalDataSource(impl: TokenLocalDataSourceImpl): TokenLocalDataSource
+
+    @ApplicationScope
+    @Binds
+    fun bindLoanRepository(impl: LoanRepositoryImpl): LoanRepository
+
+    @ApplicationScope
+    @Binds
+    fun bindLoanRemoteDataSource(impl: LoanRemoteDataSourceImpl): LoanRemoteDataSource
 }
