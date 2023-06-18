@@ -3,4 +3,5 @@
     <string name="sign_up_text">SIGN UP</string>
     <string name="et_name_hint">Enter name</string>
     <string name="et_password_hint">Enter password</string>
+    <string name="sign_in_text">SIGN IN</string>
 </resources>
