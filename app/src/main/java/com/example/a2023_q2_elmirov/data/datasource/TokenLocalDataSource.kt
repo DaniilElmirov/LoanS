@@ -20,14 +20,14 @@ class TokenLocalDataSourceImpl @Inject constructor(
         private const val ACCESS_TOKEN_NAME = "token"
         private const val ACCESS_TOKEN_KEY = "access token"
 
-        private const val DEFAULT_TOKEN = "default token"
+        private const val DEFAULT_VALUE = ""
     }
 
     override fun get(): AccessToken {
         val accessToken = application.getSharedPreferences(ACCESS_TOKEN_NAME, Context.MODE_PRIVATE)
-            .getString(ACCESS_TOKEN_KEY, DEFAULT_TOKEN)
+            .getString(ACCESS_TOKEN_KEY, DEFAULT_VALUE)
 
-        return AccessToken(accessToken ?: DEFAULT_TOKEN)
+        return AccessToken(accessToken ?: DEFAULT_VALUE)
     }
 
     override fun set(token: AccessToken) {
