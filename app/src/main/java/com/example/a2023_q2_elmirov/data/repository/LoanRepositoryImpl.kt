@@ -19,4 +19,7 @@ class LoanRepositoryImpl @Inject constructor(
 
     override suspend fun getLoanById(token: String, id: Long): Loan =
         loanRemoteDataSource.getLoanById(token, id)
+
+    override suspend fun getAll(token: String): List<Loan> =
+        loanRemoteDataSource.getAll(token)
 }

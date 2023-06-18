@@ -18,6 +18,8 @@ interface LoanRemoteDataSource {
     suspend fun getLoanConditions(token: String): LoanConditions
 
     suspend fun getLoanById(token: String, id: Long): Loan
+
+    suspend fun getAll(token: String): List<Loan>
 }
 
 class LoanRemoteDataSourceImpl @Inject constructor(
@@ -41,5 +43,10 @@ class LoanRemoteDataSourceImpl @Inject constructor(
     override suspend fun getLoanById(token: String, id: Long): Loan =
         withContext(dispatcherIo) {
             loanConverter(api.getLoanById(token, id))
+        }
+
+    override suspend fun getAll(token: String): List<Loan> =
+        withContext(dispatcherIo) {
+            api.getAll(token).map { loanConverter(it) }
         }
 }

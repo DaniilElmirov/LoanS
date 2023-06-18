@@ -11,4 +11,6 @@ interface LoanRepository {
     suspend fun getLoanConditions(token: String): LoanConditions
 
     suspend fun getLoanById(token: String, id: Long): Loan
+
+    suspend fun getAll(token: String): List<Loan>
 }

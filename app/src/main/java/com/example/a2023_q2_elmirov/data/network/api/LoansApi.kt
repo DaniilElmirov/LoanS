@@ -31,4 +31,7 @@ interface LoansApi {
 
     @GET("loans/{id}")
     suspend fun getLoanById(@Header("Authorization") token: String, @Path("id") id: Long): LoanModel
+
+    @GET("/loans/all")
+    suspend fun getAll(@Header("Authorization") token: String): List<LoanModel>
 }
