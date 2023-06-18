@@ -7,7 +7,7 @@ import com.example.a2023_q2_elmirov.domain.entity.Auth
 import com.example.a2023_q2_elmirov.domain.entity.LoanRequest
 import com.example.a2023_q2_elmirov.domain.repository.AuthRepository
 import com.example.a2023_q2_elmirov.domain.repository.LoanRepository
-import com.example.a2023_q2_elmirov.domain.usecase.GetLoanConditionsUseCase
+import com.example.a2023_q2_elmirov.domain.usecase.GetLoanByIdUseCase
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
 
         GlobalScope.launch {
             try {
-                Log.d("TAG C", GetLoanConditionsUseCase(loanRepository).invoke(token).toString())
+                Log.d("TAG ID", GetLoanByIdUseCase(loanRepository).invoke(token, 92).toString())
             } catch (e: Exception) {
                 Log.d("TAG E", e.toString())
             }

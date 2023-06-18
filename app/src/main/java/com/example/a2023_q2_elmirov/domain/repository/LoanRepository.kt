@@ -9,4 +9,6 @@ interface LoanRepository {
     suspend fun create(token: String, loanRequest: LoanRequest): Loan
 
     suspend fun getLoanConditions(token: String): LoanConditions
+
+    suspend fun getLoanById(token: String, id: Long): Loan
 }

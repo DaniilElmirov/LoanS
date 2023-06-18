@@ -11,6 +11,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface LoansApi {
     @POST("login")
@@ -27,4 +28,7 @@ interface LoansApi {
 
     @GET("loans/conditions")
     suspend fun getLoanConditions(@Header("Authorization") token: String): Response<LoanConditionsModel>
+
+    @GET("loans/{id}")
+    suspend fun getLoanById(@Header("Authorization") token: String, @Path("id") id: Long): LoanModel
 }
