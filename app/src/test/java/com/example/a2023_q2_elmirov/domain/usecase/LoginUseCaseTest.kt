@@ -1,6 +1,6 @@
 package com.example.a2023_q2_elmirov.domain.usecase
 
-import com.example.a2023_q2_elmirov.domain.repository.UserRepository
+import com.example.a2023_q2_elmirov.domain.repository.AuthRepository
 import com.example.a2023_q2_elmirov.utils.Data
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -11,14 +11,14 @@ import org.mockito.kotlin.whenever
 
 class LoginUseCaseTest {
 
-    private val repository: UserRepository = mock()
+    private val repository: AuthRepository = mock()
     private val useCase = LoginUseCase(repository)
 
     private val auth = Data.auth
     private val token = Data.token
 
     @Test
-    fun `invoke EXPECT get bearer`() = runTest {
+    fun `invoke EXPECT get token`() = runTest {
         whenever(repository.login(auth)) doReturn token
 
         val expected = token

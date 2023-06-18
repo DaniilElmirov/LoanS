@@ -1,6 +1,6 @@
 package com.example.a2023_q2_elmirov.domain.usecase
 
-import com.example.a2023_q2_elmirov.domain.repository.UserRepository
+import com.example.a2023_q2_elmirov.domain.repository.AuthRepository
 import com.example.a2023_q2_elmirov.utils.Data
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions
@@ -11,7 +11,7 @@ import org.mockito.kotlin.whenever
 
 class RegisterUseCaseTest {
 
-    private val repository: UserRepository = mock()
+    private val repository: AuthRepository = mock()
     private val useCase = RegisterUseCase(repository)
 
     private val auth = Data.auth
