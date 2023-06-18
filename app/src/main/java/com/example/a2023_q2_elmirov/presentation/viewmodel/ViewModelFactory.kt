@@ -1,4 +1,4 @@
-package com.example.a2023_q2_elmirov.presentation
+package com.example.a2023_q2_elmirov.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

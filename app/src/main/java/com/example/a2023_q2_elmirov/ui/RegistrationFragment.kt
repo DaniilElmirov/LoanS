@@ -9,8 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.a2023_q2_elmirov.LoansApplication
 import com.example.a2023_q2_elmirov.databinding.FragmentRegistrationBinding
-import com.example.a2023_q2_elmirov.presentation.RegistrationViewModel
-import com.example.a2023_q2_elmirov.presentation.ViewModelFactory
+import com.example.a2023_q2_elmirov.presentation.viewmodel.RegistrationViewModel
+import com.example.a2023_q2_elmirov.presentation.viewmodel.ViewModelFactory
 import javax.inject.Inject
 
 class RegistrationFragment : Fragment() {
