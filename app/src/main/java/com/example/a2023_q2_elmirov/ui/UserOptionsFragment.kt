@@ -8,14 +8,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.a2023_q2_elmirov.LoansApplication
-import com.example.a2023_q2_elmirov.databinding.FragmentAuthorizationBinding
-import com.example.a2023_q2_elmirov.presentation.viewmodel.AuthorizationViewModel
+import com.example.a2023_q2_elmirov.databinding.FragmentUserOptionsBinding
+import com.example.a2023_q2_elmirov.presentation.viewmodel.UserOptionsViewModel
 import com.example.a2023_q2_elmirov.presentation.viewmodel.ViewModelFactory
 import javax.inject.Inject
 
-class AuthorizationFragment : Fragment() {
+class UserOptionsFragment : Fragment() {
 
-    private var _binding: FragmentAuthorizationBinding? = null
+    private var _binding: FragmentUserOptionsBinding? = null
     private val binding
         get() = checkNotNull(_binding) {
             "Cannot access binding because it is null. Is the view visible?"
@@ -25,7 +25,7 @@ class AuthorizationFragment : Fragment() {
     lateinit var viewModelFactory: ViewModelFactory
 
     private val viewModel by lazy {
-        ViewModelProvider(this, viewModelFactory)[AuthorizationViewModel::class.java]
+        ViewModelProvider(this, viewModelFactory)[UserOptionsViewModel::class.java]
     }
 
     private val component by lazy {
@@ -42,16 +42,8 @@ class AuthorizationFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        _binding = FragmentAuthorizationBinding.inflate(inflater, container, false)
+        _binding = FragmentUserOptionsBinding.inflate(inflater, container, false)
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        binding.bSignIn.setOnClickListener {
-            viewModel.openUserOptions()
-        }
     }
 
     override fun onDestroy() {

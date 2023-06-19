@@ -5,6 +5,7 @@ import com.example.a2023_q2_elmirov.di.annotation.ViewModelKey
 import com.example.a2023_q2_elmirov.presentation.viewmodel.AuthorizationViewModel
 import com.example.a2023_q2_elmirov.presentation.viewmodel.EntryViewModel
 import com.example.a2023_q2_elmirov.presentation.viewmodel.RegistrationViewModel
+import com.example.a2023_q2_elmirov.presentation.viewmodel.UserOptionsViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -26,4 +27,9 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(EntryViewModel::class)
     fun bindEntryViewModel(viewModel: EntryViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(UserOptionsViewModel::class)
+    fun bindUserOptionsViewModel(viewModel: UserOptionsViewModel): ViewModel
 }

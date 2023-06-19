@@ -4,4 +4,7 @@
     <string name="et_name_hint">Enter name</string>
     <string name="et_password_hint">Enter password</string>
     <string name="sign_in_text">SIGN IN</string>
+    <string name="show_guide_text">SHOW GUIDE</string>
+    <string name="apply_loan_text">APPLY LOAN</string>
+    <string name="update_loans_text">UPDATE LOANS</string>
 </resources>
