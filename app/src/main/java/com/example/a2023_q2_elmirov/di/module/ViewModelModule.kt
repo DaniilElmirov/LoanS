@@ -18,6 +18,6 @@ interface ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(RegistrationViewModel::class)
+    @ViewModelKey(AuthorizationViewModel::class)
     fun bindAuthorizationViewModel(viewModel: AuthorizationViewModel): ViewModel
 }
