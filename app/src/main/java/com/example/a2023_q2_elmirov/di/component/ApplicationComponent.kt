@@ -2,10 +2,11 @@ package com.example.a2023_q2_elmirov.di.component
 
 import android.app.Application
 import com.example.a2023_q2_elmirov.LoansApplication
-import com.example.a2023_q2_elmirov.presentation.activity.MainActivity
 import com.example.a2023_q2_elmirov.di.annotation.ApplicationScope
 import com.example.a2023_q2_elmirov.di.module.DataModule
+import com.example.a2023_q2_elmirov.di.module.NavigationModule
 import com.example.a2023_q2_elmirov.di.module.ViewModelModule
+import com.example.a2023_q2_elmirov.presentation.activity.MainActivity
 import com.example.a2023_q2_elmirov.ui.AuthorizationFragment
 import com.example.a2023_q2_elmirov.ui.EntryFragment
 import com.example.a2023_q2_elmirov.ui.RegistrationFragment
@@ -17,6 +18,7 @@ import dagger.Component
     modules = [
         DataModule::class,
         ViewModelModule::class,
+        NavigationModule::class,
     ]
 )
 interface ApplicationComponent {

@@ -3,6 +3,7 @@ package com.example.a2023_q2_elmirov.di.module
 import androidx.lifecycle.ViewModel
 import com.example.a2023_q2_elmirov.di.annotation.ViewModelKey
 import com.example.a2023_q2_elmirov.presentation.viewmodel.AuthorizationViewModel
+import com.example.a2023_q2_elmirov.presentation.viewmodel.EntryViewModel
 import com.example.a2023_q2_elmirov.presentation.viewmodel.RegistrationViewModel
 import dagger.Binds
 import dagger.Module
@@ -20,4 +21,9 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(AuthorizationViewModel::class)
     fun bindAuthorizationViewModel(viewModel: AuthorizationViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(EntryViewModel::class)
+    fun bindEntryViewModel(viewModel: EntryViewModel): ViewModel
 }
