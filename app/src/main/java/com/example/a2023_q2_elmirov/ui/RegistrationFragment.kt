@@ -46,6 +46,14 @@ class RegistrationFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.bSignUp.setOnClickListener {
+            viewModel.openAuthorization()
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
