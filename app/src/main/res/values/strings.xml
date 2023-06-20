@@ -7,4 +7,9 @@
     <string name="show_guide_text">SHOW GUIDE</string>
     <string name="apply_loan_text">APPLY LOAN</string>
     <string name="update_loans_text">UPDATE LOANS</string>
+
+    <string name="error_internet_text">Check your internet connection</string>
+    <string name="error_http400_text">User with name \"%s\" already exist</string>
+    <string name="error_unknown_text">Something wrong, we will fix it soon</string>
+    <string name="error_invalid_input_text">Field can not be empty</string>
 </resources>

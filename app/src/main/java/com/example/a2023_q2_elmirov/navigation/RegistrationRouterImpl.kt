@@ -10,6 +10,6 @@ class RegistrationRouterImpl @Inject constructor(
 ) : RegistrationRouter {
 
     override fun openAuthorization() {
-        router.navigateTo(getAuthorizationScreen())
+        router.replaceScreen(getAuthorizationScreen())
     }
 }
