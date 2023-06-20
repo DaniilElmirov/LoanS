@@ -6,6 +6,7 @@ import com.example.a2023_q2_elmirov.data.datasource.LoanRemoteDataSource
 import com.example.a2023_q2_elmirov.data.datasource.LoanRemoteDataSourceImpl
 import com.example.a2023_q2_elmirov.data.datasource.TokenLocalDataSource
 import com.example.a2023_q2_elmirov.data.datasource.TokenLocalDataSourceImpl
+import com.example.a2023_q2_elmirov.data.gsonadapter.LocalDateTimeGsonAdapter
 import com.example.a2023_q2_elmirov.data.network.api.LoansApi
 import com.example.a2023_q2_elmirov.data.repository.AuthRepositoryImpl
 import com.example.a2023_q2_elmirov.data.repository.LoanRepositoryImpl
@@ -14,6 +15,8 @@ import com.example.a2023_q2_elmirov.di.annotation.ApplicationScope
 import com.example.a2023_q2_elmirov.domain.repository.AuthRepository
 import com.example.a2023_q2_elmirov.domain.repository.LoanRepository
 import com.example.a2023_q2_elmirov.domain.repository.TokenRepository
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -24,6 +27,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
+import java.time.LocalDateTime
 
 @Module
 interface DataModule {
@@ -33,29 +37,40 @@ interface DataModule {
 
         @ApplicationScope
         @Provides
-        fun provideRetrofit(httpClient: OkHttpClient): Retrofit = Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl(BASE_URL)
-            .client(httpClient)
-            .build()
+        fun provideRetrofit(httpClient: OkHttpClient, gson: Gson): Retrofit =
+            Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .baseUrl(BASE_URL)
+                .client(httpClient)
+                .build()
 
         @ApplicationScope
         @Provides
-        fun provideHttpClient(): OkHttpClient = OkHttpClient.Builder()
-            .addInterceptor(
-                HttpLoggingInterceptor().apply {
-                    level = HttpLoggingInterceptor.Level.BODY
-                }
-            )
-            .build()
+        fun provideGson(): Gson =
+            GsonBuilder()
+                .registerTypeAdapter(LocalDateTime::class.java, LocalDateTimeGsonAdapter)
+                .create()
 
         @ApplicationScope
         @Provides
-        fun provideLoansApi(retrofit: Retrofit): LoansApi = retrofit.create()
+        fun provideHttpClient(): OkHttpClient =
+            OkHttpClient.Builder()
+                .addInterceptor(
+                    HttpLoggingInterceptor().apply {
+                        level = HttpLoggingInterceptor.Level.BODY
+                    }
+                )
+                .build()
 
         @ApplicationScope
         @Provides
-        fun provideDispatcherIo(): CoroutineDispatcher = Dispatchers.IO
+        fun provideLoansApi(retrofit: Retrofit): LoansApi =
+            retrofit.create()
+
+        @ApplicationScope
+        @Provides
+        fun provideDispatcherIo(): CoroutineDispatcher =
+            Dispatchers.IO
     }
 
     @ApplicationScope

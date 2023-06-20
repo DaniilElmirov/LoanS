@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.a2023_q2_elmirov.LoansApplication
 import com.example.a2023_q2_elmirov.databinding.FragmentEntryBinding
+import com.example.a2023_q2_elmirov.domain.repository.LoanRepository
 import com.example.a2023_q2_elmirov.presentation.viewmodel.EntryViewModel
 import com.example.a2023_q2_elmirov.presentation.viewmodel.ViewModelFactory
 import javax.inject.Inject
@@ -46,20 +47,29 @@ class EntryFragment : Fragment() {
         return binding.root
     }
 
+    @Inject
+    lateinit var repository: LoanRepository
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.bSelectAuthorization.setOnClickListener {
-            viewModel.openAuthorization()
-        }
-
-        binding.bSelectRegistration.setOnClickListener {
-            viewModel.openRegistration()
-        }
+        initListeners()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    private fun initListeners() {
+        with(binding) {
+            bSelectAuthorization.setOnClickListener {
+                viewModel.openAuthorization()
+            }
+
+            bSelectRegistration.setOnClickListener {
+                viewModel.openRegistration()
+            }
+        }
     }
 }
