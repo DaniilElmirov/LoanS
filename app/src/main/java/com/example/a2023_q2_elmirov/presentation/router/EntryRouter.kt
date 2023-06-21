@@ -4,4 +4,6 @@ interface EntryRouter {
     fun openAuthorization()
 
     fun openRegistration()
+
+    fun openUserOptions()
 }
