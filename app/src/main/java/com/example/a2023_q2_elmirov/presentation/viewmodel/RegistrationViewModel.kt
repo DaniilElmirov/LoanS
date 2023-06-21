@@ -59,6 +59,8 @@ class RegistrationViewModel @Inject constructor(
                 openAuthorization()
             }
         }
+
+        _state.value = RegistrationState.Initial
     }
 
     private fun validateInput(auth: Auth): Boolean {
