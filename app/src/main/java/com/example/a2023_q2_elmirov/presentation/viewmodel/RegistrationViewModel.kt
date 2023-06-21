@@ -31,6 +31,15 @@ class RegistrationViewModel @Inject constructor(
                     //TODO спросить как правильно сбросить state
                     (exception.code() == 400) ->
                         _state.value = RegistrationState.Error(ErrorType.HTTP400)
+
+                    (exception.code() == 401) ->
+                        _state.value = RegistrationState.Error(ErrorType.HTTP401)
+
+                    (exception.code() == 403) ->
+                        _state.value = RegistrationState.Error(ErrorType.HTTP403)
+
+                    (exception.code() == 404) ->
+                        _state.value = RegistrationState.Error(ErrorType.HTTP404)
                 }
             }
 

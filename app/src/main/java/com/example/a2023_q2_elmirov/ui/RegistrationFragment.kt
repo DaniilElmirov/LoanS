@@ -15,10 +15,7 @@ import com.example.a2023_q2_elmirov.R
 import com.example.a2023_q2_elmirov.databinding.FragmentRegistrationBinding
 import com.example.a2023_q2_elmirov.domain.entity.Auth
 import com.example.a2023_q2_elmirov.domain.entity.ErrorType
-import com.example.a2023_q2_elmirov.domain.entity.ErrorType.HTTP400
-import com.example.a2023_q2_elmirov.domain.entity.ErrorType.INTERNET
-import com.example.a2023_q2_elmirov.domain.entity.ErrorType.INVALID
-import com.example.a2023_q2_elmirov.domain.entity.ErrorType.UNKNOWN
+import com.example.a2023_q2_elmirov.domain.entity.ErrorType.*
 import com.example.a2023_q2_elmirov.domain.repository.AuthRepository
 import com.example.a2023_q2_elmirov.presentation.state.RegistrationState
 import com.example.a2023_q2_elmirov.presentation.viewmodel.RegistrationViewModel
@@ -132,19 +129,26 @@ class RegistrationFragment : Fragment() {
         when (errorType) {
             INTERNET -> showInternetError()
 
-            HTTP400 -> showHttpError()
+            HTTP400 -> showUserExistError()
+
+            HTTP401 -> showUnknownError()
+
+            HTTP403 -> showUnknownError()
+
+            HTTP404 -> showUnknownError()
 
             UNKNOWN -> showUnknownError()
 
             INVALID -> showInvalidInputError()
         }
     }
+    //TODO спросить что подразумевают ошибки
 
     private fun showInternetError() {
         binding.tvError.text = getString(R.string.error_internet_text)
     }
 
-    private fun showHttpError() {
+    private fun showUserExistError() {
         binding.tvError.text = String.format(getString(R.string.error_http400_text), getAuth().name)
     }
 
