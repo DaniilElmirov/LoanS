@@ -12,6 +12,6 @@ data class LoanModel(
     val period: Int,
     val phoneNumber: String,
     val id: Long,
-    val date: LocalDateTime, //TODO вернуть LocalDateTime, написать конвертер
+    val date: LocalDateTime,
     @field:SerializedName("state") val status: LoanStatus,
 )
