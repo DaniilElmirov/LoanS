@@ -13,6 +13,8 @@ import com.example.a2023_q2_elmirov.domain.entity.LoanRequest
 import com.example.a2023_q2_elmirov.domain.entity.LoanStatus
 import com.example.a2023_q2_elmirov.domain.entity.User
 import com.example.a2023_q2_elmirov.domain.entity.UserRole
+import org.mockito.kotlin.mock
+import java.time.LocalDateTime
 
 object Data {
     val auth = Auth(name = "NAME", password = "PASSWORD")
@@ -20,6 +22,8 @@ object Data {
 
     val user = User(name = "USER", role = UserRole.USER)
     val userModel = UserModel(name = "USER", role = UserRole.USER)
+
+    private val localDateTime: LocalDateTime = mock()
 
     val loanConditionsModel = LoanConditionsModel(
         maxAmount = 14000,
@@ -40,7 +44,7 @@ object Data {
         period = 31,
         phoneNumber = "8999",
         id = 92,
-        date = "date",
+        date = localDateTime,
         status = LoanStatus.APPROVED,
     )
     val listLoanModel = listOf(loanModel, loanModel, loanModel)
@@ -53,7 +57,7 @@ object Data {
         period = 31,
         phoneNumber = "8999",
         id = 92,
-        date = "date",
+        date = localDateTime,
         status = LoanStatus.APPROVED,
     )
     val listLoan = listOf(loan, loan, loan)
