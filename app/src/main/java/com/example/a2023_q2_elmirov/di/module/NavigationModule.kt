@@ -4,9 +4,11 @@ import com.example.a2023_q2_elmirov.di.annotation.ApplicationScope
 import com.example.a2023_q2_elmirov.navigation.AuthorizationRouterImpl
 import com.example.a2023_q2_elmirov.navigation.EntryRouterImpl
 import com.example.a2023_q2_elmirov.navigation.RegistrationRouterImpl
+import com.example.a2023_q2_elmirov.navigation.UserOptionsRouterImpl
 import com.example.a2023_q2_elmirov.presentation.router.AuthorizationRouter
 import com.example.a2023_q2_elmirov.presentation.router.EntryRouter
 import com.example.a2023_q2_elmirov.presentation.router.RegistrationRouter
+import com.example.a2023_q2_elmirov.presentation.router.UserOptionsRouter
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.Cicerone.Companion.create
 import com.github.terrakok.cicerone.NavigatorHolder
@@ -41,4 +43,8 @@ interface NavigationModule {
     @ApplicationScope
     @Binds
     fun bindRegistrationRouter(impl: RegistrationRouterImpl): RegistrationRouter
+
+    @ApplicationScope
+    @Binds
+    fun bindUserOptionsRouter(impl: UserOptionsRouterImpl): UserOptionsRouter
 }

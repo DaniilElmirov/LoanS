@@ -14,4 +14,13 @@
     <string name="error_unknown_text">Something wrong, we will fix it soon</string>
     <string name="error_unknown_login_text">Something wrong, \n\n check entered data</string>
     <string name="error_invalid_input_text">Field can not be empty</string>
+    <string name="conditions_title_text">YOUR LOAN CONDITIONS:</string>
+    <string name="max_amount_title_text">Maximum loan amount:</string>
+    <string name="percent_title_text">Loan percentage:</string>
+    <string name="period_title_text">Loan period:</string>
+    <string name="enter_data_title_text">ENTER DATA:</string>
+    <string name="et_amount_hint">Enter amount</string>
+    <string name="et_first_name_hint">Enter first name</string>
+    <string name="et_second_name_hint">Enter second name</string>
+    <string name="et_phone_number_hint">Enter phone number</string>
 </resources>
