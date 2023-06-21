@@ -154,7 +154,7 @@ class AuthorizationFragment : Fragment() {
     }
 
     private fun showUnknownError() {
-        binding.tvError.text = getString(R.string.error_unknown_login_text)
+        binding.tvError.text = getString(R.string.error_unknown_text)
     }
 
     private fun showInvalidInputError() {

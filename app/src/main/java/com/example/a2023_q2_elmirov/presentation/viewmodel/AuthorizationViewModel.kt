@@ -14,6 +14,7 @@ import com.example.a2023_q2_elmirov.presentation.state.AuthorizationState
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
+import java.lang.NullPointerException
 import java.net.UnknownHostException
 import javax.inject.Inject
 
@@ -32,6 +33,7 @@ class AuthorizationViewModel @Inject constructor(
             is HttpException -> {
                 when {
                     //TODO спросить как правильно сбросить state
+                    //Надо ли пытаться поймать код ошибки из body по коду?
                     (exception.code() == 400) ->
                         _state.value = AuthorizationState.Error(ErrorType.HTTP400)
 
@@ -45,6 +47,7 @@ class AuthorizationViewModel @Inject constructor(
                         _state.value = AuthorizationState.Error(ErrorType.HTTP404)
                 }
             }
+            is NullPointerException -> _state.value = AuthorizationState.Error(ErrorType.HTTP404)
 
             else -> _state.value = AuthorizationState.Error(ErrorType.UNKNOWN)
         }
