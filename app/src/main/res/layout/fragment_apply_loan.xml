@@ -6,6 +6,38 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/tv_error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/status_registered" />
+
+    <Button
+        android:id="@+id/b_ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/b_ok_text"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_result" />
+
+    <TextView
         android:id="@+id/tv_conditions_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -84,10 +116,11 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_amount"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        app:hintEnabled="false"
+        android:hint="@string/et_amount_hint"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_enter_data_title">
 
@@ -96,7 +129,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:hint="@string/et_amount_hint"
             android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -119,7 +151,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_second_name"
+        android:id="@+id/til_last_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -128,11 +160,11 @@
         app:layout_constraintTop_toBottomOf="@id/til_first_name">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_second_name"
+            android:id="@+id/et_last_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:hint="@string/et_second_name_hint"
+            android:hint="@string/et_last_name_hint"
             android:inputType="textPersonName" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -143,7 +175,7 @@
         android:layout_marginTop="20dp"
         app:hintEnabled="false"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/til_second_name">
+        app:layout_constraintTop_toBottomOf="@id/til_last_name">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_phone_number"

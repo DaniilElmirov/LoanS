@@ -2,6 +2,7 @@ package com.example.a2023_q2_elmirov.di.module
 
 import androidx.lifecycle.ViewModel
 import com.example.a2023_q2_elmirov.di.annotation.ViewModelKey
+import com.example.a2023_q2_elmirov.presentation.viewmodel.ApplyLoanViewModel
 import com.example.a2023_q2_elmirov.presentation.viewmodel.AuthorizationViewModel
 import com.example.a2023_q2_elmirov.presentation.viewmodel.EntryViewModel
 import com.example.a2023_q2_elmirov.presentation.viewmodel.RegistrationViewModel
@@ -32,4 +33,9 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(UserOptionsViewModel::class)
     fun bindUserOptionsViewModel(viewModel: UserOptionsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ApplyLoanViewModel::class)
+    fun bindApplyLoanViewModel(viewModel: ApplyLoanViewModel): ViewModel
 }
