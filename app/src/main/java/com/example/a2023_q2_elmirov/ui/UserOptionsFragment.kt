@@ -49,13 +49,23 @@ class UserOptionsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.bApplyLoan.setOnClickListener {
-            viewModel.openApplyLoan()
-        }
+        initListeners()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    private fun initListeners() {
+        with(binding) {
+            bApplyLoan.setOnClickListener {
+                viewModel.openApplyLoan()
+            }
+
+            bLoans.setOnClickListener {
+                viewModel.openLoans()
+            }
+        }
     }
 }

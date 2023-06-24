@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.a2023_q2_elmirov.LoansApplication
 import com.example.a2023_q2_elmirov.databinding.FragmentEntryBinding
-import com.example.a2023_q2_elmirov.domain.repository.LoanRepository
 import com.example.a2023_q2_elmirov.presentation.viewmodel.EntryViewModel
 import com.example.a2023_q2_elmirov.presentation.viewmodel.ViewModelFactory
 import javax.inject.Inject
@@ -46,9 +45,6 @@ class EntryFragment : Fragment() {
         _binding = FragmentEntryBinding.inflate(inflater, container, false)
         return binding.root
     }
-
-    @Inject
-    lateinit var repository: LoanRepository
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

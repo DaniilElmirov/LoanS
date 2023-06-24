@@ -10,6 +10,7 @@ import com.example.a2023_q2_elmirov.presentation.activity.MainActivity
 import com.example.a2023_q2_elmirov.ui.ApplyLoanFragment
 import com.example.a2023_q2_elmirov.ui.AuthorizationFragment
 import com.example.a2023_q2_elmirov.ui.EntryFragment
+import com.example.a2023_q2_elmirov.ui.LoansFragment
 import com.example.a2023_q2_elmirov.ui.RegistrationFragment
 import com.example.a2023_q2_elmirov.ui.UserOptionsFragment
 import dagger.BindsInstance
@@ -38,6 +39,8 @@ interface ApplicationComponent {
     fun inject(fragment: UserOptionsFragment)
 
     fun inject(fragment: ApplyLoanFragment)
+
+    fun inject(fragment: LoansFragment)
 
     @Component.Factory
     interface Factory {

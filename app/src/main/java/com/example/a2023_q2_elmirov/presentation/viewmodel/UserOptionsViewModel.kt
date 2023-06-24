@@ -11,4 +11,8 @@ class UserOptionsViewModel @Inject constructor(
     fun openApplyLoan() {
         router.openApplyLoan()
     }
+
+    fun openLoans() {
+        router.openLoans()
+    }
 }

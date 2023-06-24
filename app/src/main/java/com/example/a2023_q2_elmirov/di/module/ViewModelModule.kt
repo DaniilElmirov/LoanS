@@ -5,6 +5,7 @@ import com.example.a2023_q2_elmirov.di.annotation.ViewModelKey
 import com.example.a2023_q2_elmirov.presentation.viewmodel.ApplyLoanViewModel
 import com.example.a2023_q2_elmirov.presentation.viewmodel.AuthorizationViewModel
 import com.example.a2023_q2_elmirov.presentation.viewmodel.EntryViewModel
+import com.example.a2023_q2_elmirov.presentation.viewmodel.LoansViewModel
 import com.example.a2023_q2_elmirov.presentation.viewmodel.RegistrationViewModel
 import com.example.a2023_q2_elmirov.presentation.viewmodel.UserOptionsViewModel
 import dagger.Binds
@@ -38,4 +39,9 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(ApplyLoanViewModel::class)
     fun bindApplyLoanViewModel(viewModel: ApplyLoanViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(LoansViewModel::class)
+    fun bindLoansViewModel(viewModel: LoansViewModel): ViewModel
 }

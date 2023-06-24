@@ -1,19 +1,17 @@
 package com.example.a2023_q2_elmirov.ui
 
 import android.content.Context
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.a2023_q2_elmirov.LoansApplication
 import com.example.a2023_q2_elmirov.R
-import com.example.a2023_q2_elmirov.databinding.FragmentRegistrationBinding
-import com.example.a2023_q2_elmirov.domain.entity.Auth
+import com.example.a2023_q2_elmirov.databinding.FragmentLoansBinding
 import com.example.a2023_q2_elmirov.domain.entity.ErrorType
 import com.example.a2023_q2_elmirov.domain.entity.ErrorType.HTTP400
 import com.example.a2023_q2_elmirov.domain.entity.ErrorType.HTTP401
@@ -22,14 +20,16 @@ import com.example.a2023_q2_elmirov.domain.entity.ErrorType.HTTP404
 import com.example.a2023_q2_elmirov.domain.entity.ErrorType.INTERNET
 import com.example.a2023_q2_elmirov.domain.entity.ErrorType.INVALID
 import com.example.a2023_q2_elmirov.domain.entity.ErrorType.UNKNOWN
-import com.example.a2023_q2_elmirov.presentation.state.RegistrationState
-import com.example.a2023_q2_elmirov.presentation.viewmodel.RegistrationViewModel
+import com.example.a2023_q2_elmirov.domain.entity.Loan
+import com.example.a2023_q2_elmirov.presentation.state.LoansState
+import com.example.a2023_q2_elmirov.presentation.viewmodel.LoansViewModel
 import com.example.a2023_q2_elmirov.presentation.viewmodel.ViewModelFactory
+import com.example.a2023_q2_elmirov.ui.recyclerview.LoanListAdapter
 import javax.inject.Inject
 
-class RegistrationFragment : Fragment() {
+class LoansFragment : Fragment() {
 
-    private var _binding: FragmentRegistrationBinding? = null
+    private var _binding: FragmentLoansBinding? = null
     private val binding
         get() = checkNotNull(_binding) {
             "Cannot access binding because it is null. Is the view visible?"
@@ -39,11 +39,15 @@ class RegistrationFragment : Fragment() {
     lateinit var viewModelFactory: ViewModelFactory
 
     private val viewModel by lazy {
-        ViewModelProvider(this, viewModelFactory)[RegistrationViewModel::class.java]
+        ViewModelProvider(this, viewModelFactory)[LoansViewModel::class.java]
     }
 
     private val component by lazy {
         (requireActivity().application as LoansApplication).component
+    }
+
+    private val loanAdapter = LoanListAdapter {
+        Toast.makeText(requireContext(), it.id.toString(), Toast.LENGTH_SHORT).show()
     }
 
     override fun onAttach(context: Context) {
@@ -56,7 +60,7 @@ class RegistrationFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        _binding = FragmentRegistrationBinding.inflate(inflater, container, false)
+        _binding = FragmentLoansBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -74,18 +78,8 @@ class RegistrationFragment : Fragment() {
     }
 
     private fun initListeners() {
-        binding.bSignUp.setOnClickListener {
-            val auth = getAuth()
-            viewModel.registration(auth)
-        }
-    }
-
-    private fun getAuth(): Auth {
-        with(binding) {
-            val name = etName.text.toString()
-            val password = etPassword.text.toString()
-
-            return Auth(name, password)
+        binding.bUpdate.setOnClickListener {
+            viewModel.getAll()
         }
     }
 
@@ -93,76 +87,68 @@ class RegistrationFragment : Fragment() {
         viewModel.state.observe(viewLifecycleOwner, ::applyState)
     }
 
-    private fun applyState(state: RegistrationState) {
+    private fun applyState(state: LoansState) {
         when (state) {
-            RegistrationState.Initial -> Unit
+            LoansState.Initial -> Unit
 
-            is RegistrationState.Loading -> applyLoadingState()
+            LoansState.Loading -> applyLoadingState()
 
-            is RegistrationState.Error -> applyErrorState(state.errorType)
+            is LoansState.Content -> applyContentState(state.loans)
+
+            is LoansState.Error -> applyErrorState(state.errorType)
         }
     }
 
     private fun applyLoadingState() {
         with(binding) {
-            tvError.isVisible = false
-
-            tilName.isVisible = false
-            tilPassword.isVisible = false
-
-            bSignUp.isVisible = false
-
+            recyclerView.isVisible = false
+            bUpdate.isVisible = false
             progressBar.isVisible = true
+            tvError.isVisible = false
         }
     }
 
-    private fun applyErrorState(errorType: ErrorType) {
+    private fun applyContentState(loans: List<Loan>) {
+        loanAdapter.submitList(loans)
+
         with(binding) {
-            tvError.isVisible = true
+            recyclerView.isVisible = true
+            recyclerView.adapter = loanAdapter
 
-            tilName.isVisible = true
-            tilPassword.isVisible = true
-
-            bSignUp.isVisible = true
-
+            bUpdate.isVisible = true
             progressBar.isVisible = false
+            tvError.isVisible = false
+        }
+    }
+
+    private fun applyErrorState(errorType: ErrorType) { //TODO нужна кнопка возврата на экран после показа ошибки
+        with(binding) {
+            recyclerView.isVisible = false
+            bUpdate.isVisible = false
+            progressBar.isVisible = false
+            tvError.isVisible = true
         }
 
         when (errorType) {
             INTERNET -> showInternetError()
 
-            HTTP400 -> showUserExistError()
+            HTTP403 -> showLoginAgainError()
 
-            HTTP401 -> showUnknownError()
+            HTTP400, HTTP401, HTTP404, UNKNOWN -> showUnknownError()
 
-            HTTP403 -> showUnknownError()
-
-            HTTP404 -> showUnknownError()
-
-            UNKNOWN -> showUnknownError()
-
-            INVALID -> showInvalidInputError()
+            INVALID -> Unit
         }
     }
-    //TODO спросить что подразумевают ошибки
 
     private fun showInternetError() {
         binding.tvError.text = getString(R.string.error_internet_text)
     }
 
-    private fun showUserExistError() {
-        binding.tvError.text = String.format(getString(R.string.error_http400_text), getAuth().name)
+    private fun showLoginAgainError() {
+        binding.tvError.text = getString(R.string.error_http403_text)
     }
 
     private fun showUnknownError() {
         binding.tvError.text = getString(R.string.error_unknown_text)
-    }
-
-    private fun showInvalidInputError() {
-        binding.etName.hint = getString(R.string.error_invalid_input_text)
-        binding.etName.setHintTextColor(ColorStateList.valueOf(Color.RED))
-
-        binding.etPassword.hint = getString(R.string.error_invalid_input_text)
-        binding.etPassword.setHintTextColor(ColorStateList.valueOf(Color.RED))
     }
 }

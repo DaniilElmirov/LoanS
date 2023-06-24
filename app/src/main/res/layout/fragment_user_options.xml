@@ -23,11 +23,11 @@
         app:layout_constraintTop_toBottomOf="@id/b_show_guide" />
 
     <Button
-        android:id="@+id/b_update_loans"
+        android:id="@+id/b_loans"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="@string/update_loans_text"
+        android:text="@string/my_loans_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/b_apply_loan" />
 </androidx.constraintlayout.widget.ConstraintLayout>
