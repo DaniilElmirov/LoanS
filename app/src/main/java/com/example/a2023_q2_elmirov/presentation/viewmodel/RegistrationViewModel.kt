@@ -4,9 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.a2023_q2_elmirov.domain.entity.AccessToken
 import com.example.a2023_q2_elmirov.domain.entity.Auth
 import com.example.a2023_q2_elmirov.domain.entity.ErrorType
+import com.example.a2023_q2_elmirov.domain.usecase.LoginUseCase
 import com.example.a2023_q2_elmirov.domain.usecase.RegisterUseCase
+import com.example.a2023_q2_elmirov.domain.usecase.SetTokenUseCase
 import com.example.a2023_q2_elmirov.presentation.router.RegistrationRouter
 import com.example.a2023_q2_elmirov.presentation.state.RegistrationState
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -18,6 +21,8 @@ import javax.inject.Inject
 class RegistrationViewModel @Inject constructor(
     private val router: RegistrationRouter,
     private val registerUseCase: RegisterUseCase,
+    private val loginUseCase: LoginUseCase,
+    private val setTokenUseCase: SetTokenUseCase,
 ) : ViewModel() {
 
     private val _state = MutableLiveData<RegistrationState>(RegistrationState.Initial)
@@ -56,7 +61,11 @@ class RegistrationViewModel @Inject constructor(
 
             viewModelScope.launch(handleError) {
                 registerUseCase(auth)
-                openAuthorization()
+
+                val token = loginUseCase(auth)
+                setTokenUseCase(AccessToken(token))
+
+                openUserOptions()
             }
         }
 
@@ -72,7 +81,7 @@ class RegistrationViewModel @Inject constructor(
         return result
     }
 
-    private fun openAuthorization() {
-        router.openAuthorization()
+    private fun openUserOptions() {
+        router.openUserOptions()
     }
 }
