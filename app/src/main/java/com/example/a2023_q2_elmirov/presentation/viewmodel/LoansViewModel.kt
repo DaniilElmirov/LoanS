@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.a2023_q2_elmirov.domain.entity.ErrorType
 import com.example.a2023_q2_elmirov.domain.usecase.GetAllLoansUseCase
 import com.example.a2023_q2_elmirov.domain.usecase.GetTokenUseCase
+import com.example.a2023_q2_elmirov.presentation.router.LoansRouter
 import com.example.a2023_q2_elmirov.presentation.state.LoansState
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
@@ -17,6 +18,7 @@ import javax.inject.Inject
 class LoansViewModel @Inject constructor(
     private val getAllLoansUseCase: GetAllLoansUseCase,
     private val getTokenUseCase: GetTokenUseCase,
+    private val router: LoansRouter,
 ) : ViewModel() {
 
     private val _state = MutableLiveData<LoansState>(LoansState.Initial)
@@ -57,5 +59,9 @@ class LoansViewModel @Inject constructor(
             val loans = getAllLoansUseCase(token)
             _state.value = LoansState.Content(loans)
         }
+    }
+
+    fun openLoanDetails(loanId: Long) {
+        router.openLoanDetails(loanId)
     }
 }

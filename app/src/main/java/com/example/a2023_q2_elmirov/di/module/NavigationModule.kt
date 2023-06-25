@@ -4,11 +4,13 @@ import com.example.a2023_q2_elmirov.di.annotation.ApplicationScope
 import com.example.a2023_q2_elmirov.navigation.ApplyLoanRouterImpl
 import com.example.a2023_q2_elmirov.navigation.AuthorizationRouterImpl
 import com.example.a2023_q2_elmirov.navigation.EntryRouterImpl
+import com.example.a2023_q2_elmirov.navigation.LoansRouterImpl
 import com.example.a2023_q2_elmirov.navigation.RegistrationRouterImpl
 import com.example.a2023_q2_elmirov.navigation.UserOptionsRouterImpl
 import com.example.a2023_q2_elmirov.presentation.router.ApplyLoanRouter
 import com.example.a2023_q2_elmirov.presentation.router.AuthorizationRouter
 import com.example.a2023_q2_elmirov.presentation.router.EntryRouter
+import com.example.a2023_q2_elmirov.presentation.router.LoansRouter
 import com.example.a2023_q2_elmirov.presentation.router.RegistrationRouter
 import com.example.a2023_q2_elmirov.presentation.router.UserOptionsRouter
 import com.github.terrakok.cicerone.Cicerone
@@ -53,4 +55,8 @@ interface NavigationModule {
     @ApplicationScope
     @Binds
     fun bindApplyLoanRouter(impl: ApplyLoanRouterImpl): ApplyLoanRouter
+
+    @ApplicationScope
+    @Binds
+    fun bindLoansRouter(impl: LoansRouterImpl): LoansRouter
 }

@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -22,6 +21,10 @@ import com.example.a2023_q2_elmirov.domain.entity.ErrorType.INVALID
 import com.example.a2023_q2_elmirov.domain.entity.ErrorType.UNKNOWN
 import com.example.a2023_q2_elmirov.domain.entity.Loan
 import com.example.a2023_q2_elmirov.presentation.state.LoansState
+import com.example.a2023_q2_elmirov.presentation.state.LoansState.Content
+import com.example.a2023_q2_elmirov.presentation.state.LoansState.Error
+import com.example.a2023_q2_elmirov.presentation.state.LoansState.Initial
+import com.example.a2023_q2_elmirov.presentation.state.LoansState.Loading
 import com.example.a2023_q2_elmirov.presentation.viewmodel.LoansViewModel
 import com.example.a2023_q2_elmirov.presentation.viewmodel.ViewModelFactory
 import com.example.a2023_q2_elmirov.ui.recyclerview.LoanListAdapter
@@ -46,9 +49,7 @@ class LoansFragment : Fragment() {
         (requireActivity().application as LoansApplication).component
     }
 
-    private val loanAdapter = LoanListAdapter {
-        Toast.makeText(requireContext(), it.id.toString(), Toast.LENGTH_SHORT).show()
-    }
+    private var loanAdapter: LoanListAdapter? = null
 
     override fun onAttach(context: Context) {
         component.inject(this)
@@ -67,6 +68,10 @@ class LoansFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        loanAdapter = LoanListAdapter {
+            viewModel.openLoanDetails(it)
+        }
+
         initListeners()
 
         initObservers()
@@ -74,6 +79,8 @@ class LoansFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
+        _binding?.recyclerView?.adapter = null
+        //binding.recyclerView.adapter = null
         _binding = null
     }
 
@@ -89,13 +96,13 @@ class LoansFragment : Fragment() {
 
     private fun applyState(state: LoansState) {
         when (state) {
-            LoansState.Initial -> Unit
+            Initial -> Unit
 
-            LoansState.Loading -> applyLoadingState()
+            Loading -> applyLoadingState()
 
-            is LoansState.Content -> applyContentState(state.loans)
+            is Content -> applyContentState(state.loans)
 
-            is LoansState.Error -> applyErrorState(state.errorType)
+            is Error -> applyErrorState(state.errorType)
         }
     }
 
@@ -109,7 +116,7 @@ class LoansFragment : Fragment() {
     }
 
     private fun applyContentState(loans: List<Loan>) {
-        loanAdapter.submitList(loans)
+        loanAdapter?.submitList(loans)
 
         with(binding) {
             recyclerView.isVisible = true

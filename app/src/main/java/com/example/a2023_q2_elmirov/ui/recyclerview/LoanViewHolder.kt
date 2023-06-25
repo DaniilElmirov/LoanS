@@ -14,7 +14,7 @@ import com.example.a2023_q2_elmirov.domain.entity.LoanStatus.REJECTED
 
 class LoanViewHolder(
     parent: ViewGroup,
-    private val onClick: (Loan) -> Unit,
+    private val onClick: (loanId: Long) -> Unit,
 ) : RecyclerView.ViewHolder(
     LayoutInflater.from(parent.context).inflate(R.layout.item_loan, parent, false)
 ) {
@@ -23,7 +23,7 @@ class LoanViewHolder(
 
     fun bind(loan: Loan) {
         itemView.setOnClickListener {
-            onClick(loan)
+            onClick(loan.id)
         }
 
         with(binding) {

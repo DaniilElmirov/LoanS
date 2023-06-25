@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.ListAdapter
 import com.example.a2023_q2_elmirov.domain.entity.Loan
 
 class LoanListAdapter(
-    private val onClick: (Loan) -> Unit,
+    private val onClick: (loanId: Long) -> Unit,
 ) : ListAdapter<Loan, LoanViewHolder>(LoanDiffUtilCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LoanViewHolder =
