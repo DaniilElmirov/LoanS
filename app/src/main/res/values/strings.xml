@@ -4,7 +4,7 @@
     <string name="et_name_hint">Enter name</string>
     <string name="et_password_hint">Enter password</string>
     <string name="sign_in_text">SIGN IN</string>
-    <string name="show_guide_text">SHOW GUIDE</string>
+    <string name="show_manual_text">SHOW MANUAL</string>
     <string name="apply_loan_text">APPLY LOAN</string>
     <string name="my_loans_text">MY LOANS</string>
 
@@ -35,4 +35,9 @@
     <string name="first_name_title">First name:</string>
     <string name="last_name_title">Last name:</string>
     <string name="phone_number_title">Phone number:</string>
+    <string name="prev">PREV</string>
+    <string name="next">NEXT</string>
+    <string name="loan_manual">HOW TO APPLY LOAN\n\n1) Click on button \"APPLY LOAN\"\n\n2) Enter your data\n\n3) Expect a decision</string>
+    <string name="loans_manual">HOW TO GET OWN LOANS\n\n1) Click on button \"MY LOANS\"\n\n2) Scroll your loans\n\n3) Click on loan to get full information</string>
+    <string name="no_loans">You have not received any loans</string>
 </resources>

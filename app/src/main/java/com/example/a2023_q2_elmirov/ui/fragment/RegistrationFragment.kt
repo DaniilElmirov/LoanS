@@ -1,4 +1,4 @@
-package com.example.a2023_q2_elmirov.ui
+package com.example.a2023_q2_elmirov.ui.fragment
 
 import android.content.Context
 import android.content.res.ColorStateList
@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.a2023_q2_elmirov.LoansApplication
 import com.example.a2023_q2_elmirov.R
-import com.example.a2023_q2_elmirov.databinding.FragmentAuthorizationBinding
+import com.example.a2023_q2_elmirov.databinding.FragmentRegistrationBinding
 import com.example.a2023_q2_elmirov.domain.entity.Auth
 import com.example.a2023_q2_elmirov.domain.entity.ErrorType
 import com.example.a2023_q2_elmirov.domain.entity.ErrorType.HTTP400
@@ -22,14 +22,14 @@ import com.example.a2023_q2_elmirov.domain.entity.ErrorType.HTTP404
 import com.example.a2023_q2_elmirov.domain.entity.ErrorType.INTERNET
 import com.example.a2023_q2_elmirov.domain.entity.ErrorType.INVALID
 import com.example.a2023_q2_elmirov.domain.entity.ErrorType.UNKNOWN
-import com.example.a2023_q2_elmirov.presentation.state.AuthorizationState
-import com.example.a2023_q2_elmirov.presentation.viewmodel.AuthorizationViewModel
+import com.example.a2023_q2_elmirov.presentation.state.RegistrationState
+import com.example.a2023_q2_elmirov.presentation.viewmodel.RegistrationViewModel
 import com.example.a2023_q2_elmirov.presentation.viewmodel.ViewModelFactory
 import javax.inject.Inject
 
-class AuthorizationFragment : Fragment() {
+class RegistrationFragment : Fragment() {
 
-    private var _binding: FragmentAuthorizationBinding? = null
+    private var _binding: FragmentRegistrationBinding? = null
     private val binding
         get() = checkNotNull(_binding) {
             "Cannot access binding because it is null. Is the view visible?"
@@ -39,7 +39,7 @@ class AuthorizationFragment : Fragment() {
     lateinit var viewModelFactory: ViewModelFactory
 
     private val viewModel by lazy {
-        ViewModelProvider(this, viewModelFactory)[AuthorizationViewModel::class.java]
+        ViewModelProvider(this, viewModelFactory)[RegistrationViewModel::class.java]
     }
 
     private val component by lazy {
@@ -56,7 +56,7 @@ class AuthorizationFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        _binding = FragmentAuthorizationBinding.inflate(inflater, container, false)
+        _binding = FragmentRegistrationBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -74,9 +74,9 @@ class AuthorizationFragment : Fragment() {
     }
 
     private fun initListeners() {
-        binding.bSignIn.setOnClickListener {
+        binding.bSignUp.setOnClickListener {
             val auth = getAuth()
-            viewModel.authorization(auth)
+            viewModel.registration(auth)
         }
     }
 
@@ -93,13 +93,13 @@ class AuthorizationFragment : Fragment() {
         viewModel.state.observe(viewLifecycleOwner, ::applyState)
     }
 
-    private fun applyState(state: AuthorizationState) {
+    private fun applyState(state: RegistrationState) {
         when (state) {
-            AuthorizationState.Initial -> Unit
+            RegistrationState.Initial -> Unit
 
-            is AuthorizationState.Loading -> applyLoadingState()
+            is RegistrationState.Loading -> applyLoadingState()
 
-            is AuthorizationState.Error -> applyErrorState(state.errorType)
+            is RegistrationState.Error -> applyErrorState(state.errorType)
         }
     }
 
@@ -110,7 +110,7 @@ class AuthorizationFragment : Fragment() {
             tilName.isVisible = false
             tilPassword.isVisible = false
 
-            bSignIn.isVisible = false
+            bSignUp.isVisible = false
 
             progressBar.isVisible = true
         }
@@ -123,7 +123,7 @@ class AuthorizationFragment : Fragment() {
             tilName.isVisible = true
             tilPassword.isVisible = true
 
-            bSignIn.isVisible = true
+            bSignUp.isVisible = true
 
             progressBar.isVisible = false
         }
@@ -131,26 +131,27 @@ class AuthorizationFragment : Fragment() {
         when (errorType) {
             INTERNET -> showInternetError()
 
-            HTTP400 -> showUnknownError()
+            HTTP400 -> showUserExistError()
 
             HTTP401 -> showUnknownError()
 
             HTTP403 -> showUnknownError()
 
-            HTTP404 -> showNotFoundError()
+            HTTP404 -> showUnknownError()
 
             UNKNOWN -> showUnknownError()
 
             INVALID -> showInvalidInputError()
         }
     }
+    //TODO спросить что подразумевают ошибки
 
     private fun showInternetError() {
         binding.tvError.text = getString(R.string.error_internet_text)
     }
 
-    private fun showNotFoundError() {
-        binding.tvError.text = getString(R.string.error_http404_text)
+    private fun showUserExistError() {
+        binding.tvError.text = String.format(getString(R.string.error_http400_text), getAuth().name)
     }
 
     private fun showUnknownError() {

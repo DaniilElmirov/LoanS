@@ -1,4 +1,4 @@
-package com.example.a2023_q2_elmirov.ui
+package com.example.a2023_q2_elmirov.ui.fragment
 
 import android.content.Context
 import android.content.res.ColorStateList

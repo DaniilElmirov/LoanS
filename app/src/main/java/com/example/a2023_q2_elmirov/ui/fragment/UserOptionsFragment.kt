@@ -1,4 +1,4 @@
-package com.example.a2023_q2_elmirov.ui
+package com.example.a2023_q2_elmirov.ui.fragment
 
 import android.content.Context
 import android.os.Bundle
@@ -8,14 +8,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.a2023_q2_elmirov.LoansApplication
-import com.example.a2023_q2_elmirov.databinding.FragmentEntryBinding
-import com.example.a2023_q2_elmirov.presentation.viewmodel.EntryViewModel
+import com.example.a2023_q2_elmirov.databinding.FragmentUserOptionsBinding
+import com.example.a2023_q2_elmirov.presentation.viewmodel.UserOptionsViewModel
 import com.example.a2023_q2_elmirov.presentation.viewmodel.ViewModelFactory
 import javax.inject.Inject
 
-class EntryFragment : Fragment() {
+class UserOptionsFragment : Fragment() {
 
-    private var _binding: FragmentEntryBinding? = null
+    private var _binding: FragmentUserOptionsBinding? = null
     private val binding
         get() = checkNotNull(_binding) {
             "Cannot access binding because it is null. Is the view visible?"
@@ -25,7 +25,7 @@ class EntryFragment : Fragment() {
     lateinit var viewModelFactory: ViewModelFactory
 
     private val viewModel by lazy {
-        ViewModelProvider(this, viewModelFactory)[EntryViewModel::class.java]
+        ViewModelProvider(this, viewModelFactory)[UserOptionsViewModel::class.java]
     }
 
     private val component by lazy {
@@ -42,7 +42,7 @@ class EntryFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        _binding = FragmentEntryBinding.inflate(inflater, container, false)
+        _binding = FragmentUserOptionsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -59,12 +59,17 @@ class EntryFragment : Fragment() {
 
     private fun initListeners() {
         with(binding) {
-            bSelectAuthorization.setOnClickListener {
-                viewModel.openAuthorization()
+
+            bShowManual.setOnClickListener {
+                viewModel.openManual()
             }
 
-            bSelectRegistration.setOnClickListener {
-                viewModel.openRegistration()
+            bApplyLoan.setOnClickListener {
+                viewModel.openApplyLoan()
+            }
+
+            bLoans.setOnClickListener {
+                viewModel.openLoans()
             }
         }
     }

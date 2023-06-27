@@ -5,11 +5,11 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/b_show_guide"
+        android:id="@+id/b_show_manual"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
-        android:text="@string/show_guide_text"
+        android:text="@string/show_manual_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -20,7 +20,7 @@
         android:layout_marginTop="20dp"
         android:text="@string/apply_loan_text"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/b_show_guide" />
+        app:layout_constraintTop_toBottomOf="@id/b_show_manual" />
 
     <Button
         android:id="@+id/b_loans"

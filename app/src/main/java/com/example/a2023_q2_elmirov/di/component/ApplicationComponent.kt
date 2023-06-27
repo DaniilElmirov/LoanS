@@ -7,13 +7,14 @@ import com.example.a2023_q2_elmirov.di.module.DataModule
 import com.example.a2023_q2_elmirov.di.module.NavigationModule
 import com.example.a2023_q2_elmirov.di.module.ViewModelModule
 import com.example.a2023_q2_elmirov.presentation.activity.MainActivity
-import com.example.a2023_q2_elmirov.ui.ApplyLoanFragment
-import com.example.a2023_q2_elmirov.ui.AuthorizationFragment
-import com.example.a2023_q2_elmirov.ui.EntryFragment
-import com.example.a2023_q2_elmirov.ui.LoanDetailsFragment
-import com.example.a2023_q2_elmirov.ui.LoansFragment
-import com.example.a2023_q2_elmirov.ui.RegistrationFragment
-import com.example.a2023_q2_elmirov.ui.UserOptionsFragment
+import com.example.a2023_q2_elmirov.ui.fragment.ApplyLoanFragment
+import com.example.a2023_q2_elmirov.ui.fragment.AuthorizationFragment
+import com.example.a2023_q2_elmirov.ui.fragment.EntryFragment
+import com.example.a2023_q2_elmirov.ui.fragment.LoanDetailsFragment
+import com.example.a2023_q2_elmirov.ui.fragment.LoansFragment
+import com.example.a2023_q2_elmirov.ui.fragment.ManualFragment
+import com.example.a2023_q2_elmirov.ui.fragment.RegistrationFragment
+import com.example.a2023_q2_elmirov.ui.fragment.UserOptionsFragment
 import dagger.BindsInstance
 import dagger.Component
 
@@ -44,6 +45,8 @@ interface ApplicationComponent {
     fun inject(fragment: LoansFragment)
 
     fun inject(fragment: LoanDetailsFragment)
+
+    fun inject(fragment: ManualFragment)
 
     @Component.Factory
     interface Factory {

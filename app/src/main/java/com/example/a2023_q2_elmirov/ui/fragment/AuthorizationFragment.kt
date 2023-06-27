@@ -1,6 +1,8 @@
-package com.example.a2023_q2_elmirov.ui
+package com.example.a2023_q2_elmirov.ui.fragment
 
 import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +12,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.a2023_q2_elmirov.LoansApplication
 import com.example.a2023_q2_elmirov.R
-import com.example.a2023_q2_elmirov.databinding.FragmentLoansBinding
+import com.example.a2023_q2_elmirov.databinding.FragmentAuthorizationBinding
+import com.example.a2023_q2_elmirov.domain.entity.Auth
 import com.example.a2023_q2_elmirov.domain.entity.ErrorType
 import com.example.a2023_q2_elmirov.domain.entity.ErrorType.HTTP400
 import com.example.a2023_q2_elmirov.domain.entity.ErrorType.HTTP401
@@ -19,20 +22,14 @@ import com.example.a2023_q2_elmirov.domain.entity.ErrorType.HTTP404
 import com.example.a2023_q2_elmirov.domain.entity.ErrorType.INTERNET
 import com.example.a2023_q2_elmirov.domain.entity.ErrorType.INVALID
 import com.example.a2023_q2_elmirov.domain.entity.ErrorType.UNKNOWN
-import com.example.a2023_q2_elmirov.domain.entity.Loan
-import com.example.a2023_q2_elmirov.presentation.state.LoansState
-import com.example.a2023_q2_elmirov.presentation.state.LoansState.Content
-import com.example.a2023_q2_elmirov.presentation.state.LoansState.Error
-import com.example.a2023_q2_elmirov.presentation.state.LoansState.Initial
-import com.example.a2023_q2_elmirov.presentation.state.LoansState.Loading
-import com.example.a2023_q2_elmirov.presentation.viewmodel.LoansViewModel
+import com.example.a2023_q2_elmirov.presentation.state.AuthorizationState
+import com.example.a2023_q2_elmirov.presentation.viewmodel.AuthorizationViewModel
 import com.example.a2023_q2_elmirov.presentation.viewmodel.ViewModelFactory
-import com.example.a2023_q2_elmirov.ui.recyclerview.LoanListAdapter
 import javax.inject.Inject
 
-class LoansFragment : Fragment() {
+class AuthorizationFragment : Fragment() {
 
-    private var _binding: FragmentLoansBinding? = null
+    private var _binding: FragmentAuthorizationBinding? = null
     private val binding
         get() = checkNotNull(_binding) {
             "Cannot access binding because it is null. Is the view visible?"
@@ -42,14 +39,12 @@ class LoansFragment : Fragment() {
     lateinit var viewModelFactory: ViewModelFactory
 
     private val viewModel by lazy {
-        ViewModelProvider(this, viewModelFactory)[LoansViewModel::class.java]
+        ViewModelProvider(this, viewModelFactory)[AuthorizationViewModel::class.java]
     }
 
     private val component by lazy {
         (requireActivity().application as LoansApplication).component
     }
-
-    private var loanAdapter: LoanListAdapter? = null
 
     override fun onAttach(context: Context) {
         component.inject(this)
@@ -61,16 +56,12 @@ class LoansFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        _binding = FragmentLoansBinding.inflate(inflater, container, false)
+        _binding = FragmentAuthorizationBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        loanAdapter = LoanListAdapter {
-            viewModel.openLoanDetails(it)
-        }
 
         initListeners()
 
@@ -79,14 +70,22 @@ class LoansFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        _binding?.recyclerView?.adapter = null
-        //binding.recyclerView.adapter = null
         _binding = null
     }
 
     private fun initListeners() {
-        binding.bUpdate.setOnClickListener {
-            viewModel.getAll()
+        binding.bSignIn.setOnClickListener {
+            val auth = getAuth()
+            viewModel.authorization(auth)
+        }
+    }
+
+    private fun getAuth(): Auth {
+        with(binding) {
+            val name = etName.text.toString()
+            val password = etPassword.text.toString()
+
+            return Auth(name, password)
         }
     }
 
@@ -94,56 +93,55 @@ class LoansFragment : Fragment() {
         viewModel.state.observe(viewLifecycleOwner, ::applyState)
     }
 
-    private fun applyState(state: LoansState) {
+    private fun applyState(state: AuthorizationState) {
         when (state) {
-            Initial -> Unit
+            AuthorizationState.Initial -> Unit
 
-            Loading -> applyLoadingState()
+            is AuthorizationState.Loading -> applyLoadingState()
 
-            is Content -> applyContentState(state.loans)
-
-            is Error -> applyErrorState(state.errorType)
+            is AuthorizationState.Error -> applyErrorState(state.errorType)
         }
     }
 
     private fun applyLoadingState() {
         with(binding) {
-            recyclerView.isVisible = false
-            bUpdate.isVisible = false
+            tvError.isVisible = false
+
+            tilName.isVisible = false
+            tilPassword.isVisible = false
+
+            bSignIn.isVisible = false
+
             progressBar.isVisible = true
-            tvError.isVisible = false
         }
     }
 
-    private fun applyContentState(loans: List<Loan>) {
-        loanAdapter?.submitList(loans)
-
+    private fun applyErrorState(errorType: ErrorType) {
         with(binding) {
-            recyclerView.isVisible = true
-            recyclerView.adapter = loanAdapter
-
-            bUpdate.isVisible = true
-            progressBar.isVisible = false
-            tvError.isVisible = false
-        }
-    }
-
-    private fun applyErrorState(errorType: ErrorType) { //TODO нужна кнопка возврата на экран после показа ошибки
-        with(binding) {
-            recyclerView.isVisible = false
-            bUpdate.isVisible = false
-            progressBar.isVisible = false
             tvError.isVisible = true
+
+            tilName.isVisible = true
+            tilPassword.isVisible = true
+
+            bSignIn.isVisible = true
+
+            progressBar.isVisible = false
         }
 
         when (errorType) {
             INTERNET -> showInternetError()
 
-            HTTP403 -> showLoginAgainError()
+            HTTP400 -> showUnknownError()
 
-            HTTP400, HTTP401, HTTP404, UNKNOWN -> showUnknownError()
+            HTTP401 -> showUnknownError()
 
-            INVALID -> Unit
+            HTTP403 -> showUnknownError()
+
+            HTTP404 -> showNotFoundError()
+
+            UNKNOWN -> showUnknownError()
+
+            INVALID -> showInvalidInputError()
         }
     }
 
@@ -151,11 +149,19 @@ class LoansFragment : Fragment() {
         binding.tvError.text = getString(R.string.error_internet_text)
     }
 
-    private fun showLoginAgainError() {
-        binding.tvError.text = getString(R.string.error_http403_text)
+    private fun showNotFoundError() {
+        binding.tvError.text = getString(R.string.error_http404_text)
     }
 
     private fun showUnknownError() {
         binding.tvError.text = getString(R.string.error_unknown_text)
+    }
+
+    private fun showInvalidInputError() {
+        binding.etName.hint = getString(R.string.error_invalid_input_text)
+        binding.etName.setHintTextColor(ColorStateList.valueOf(Color.RED))
+
+        binding.etPassword.hint = getString(R.string.error_invalid_input_text)
+        binding.etPassword.setHintTextColor(ColorStateList.valueOf(Color.RED))
     }
 }

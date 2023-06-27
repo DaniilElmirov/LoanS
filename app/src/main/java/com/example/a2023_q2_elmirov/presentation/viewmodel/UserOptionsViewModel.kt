@@ -8,6 +8,10 @@ class UserOptionsViewModel @Inject constructor(
     private val router: UserOptionsRouter,
 ) : ViewModel() {
 
+    fun openManual() {
+        router.openManual()
+    }
+
     fun openApplyLoan() {
         router.openApplyLoan()
     }
