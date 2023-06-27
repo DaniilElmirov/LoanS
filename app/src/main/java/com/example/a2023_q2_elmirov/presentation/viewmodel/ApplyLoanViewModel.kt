@@ -31,6 +31,9 @@ class ApplyLoanViewModel @Inject constructor(
     private val _state = MutableLiveData<ApplyLoanState>(ApplyLoanState.Initial)
     val state: LiveData<ApplyLoanState> = _state
 
+    private val _amount = MutableLiveData(MIN_LOAN_AMOUNT)
+    val amount: LiveData<Int> = _amount
+
     private val handleError = CoroutineExceptionHandler { _, exception ->
         when (exception) {
             is UnknownHostException -> _state.value = ApplyLoanState.Error(ErrorType.INTERNET)
@@ -45,6 +48,10 @@ class ApplyLoanViewModel @Inject constructor(
 
     init {
         getLoanConditions()
+    }
+
+    fun setupProgress(progress: Int) {
+        _amount.value = progress
     }
 
     private fun getLoanConditions() {
@@ -73,7 +80,7 @@ class ApplyLoanViewModel @Inject constructor(
         val period = loanConditions.period
 
         val loanRequest =
-            LoanRequest(amount.toLong(), firstName, lastName, percent, period, phoneNumber)
+            LoanRequest(amount.toInt(), firstName, lastName, percent, period, phoneNumber)
 
         if (!validateInput(loanRequest))
             _state.value = ApplyLoanState.Error(ErrorType.INVALID)
@@ -91,8 +98,6 @@ class ApplyLoanViewModel @Inject constructor(
         var result = true
 
         if (
-            loanRequest.amount > loanConditions.maxAmount ||
-            loanRequest.amount < MIN_LOAN_AMOUNT ||
             loanRequest.firstName.isBlank() ||
             loanRequest.lastName.isBlank() ||
             loanRequest.phoneNumber.isBlank()

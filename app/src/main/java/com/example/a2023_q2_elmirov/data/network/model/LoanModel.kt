@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import java.time.LocalDateTime
 
 data class LoanModel(
-    val amount: Long,
+    val amount: Int,
     val firstName: String,
     val lastName: String,
     val percent: Double,
