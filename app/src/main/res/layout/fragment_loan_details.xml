@@ -158,6 +158,16 @@
         app:layout_constraintTop_toTopOf="@id/phone_number_title"
         tools:text="sdfpijsdkipfsd" />
 
+    <TextView
+        android:id="@+id/tv_get"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/phone_number_title" />
+
     <ProgressBar
         android:id="@+id/progress_bar"
         android:layout_width="match_parent"

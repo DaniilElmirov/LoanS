@@ -40,4 +40,5 @@
     <string name="loan_manual">HOW TO APPLY LOAN\n\n1) Click on button \"APPLY LOAN\"\n\n2) Enter your data\n\n3) Expect a decision</string>
     <string name="loans_manual">HOW TO GET OWN LOANS\n\n1) Click on button \"MY LOANS\"\n\n2) Scroll your loans\n\n3) Click on loan to get full information</string>
     <string name="no_loans">You have not received any loans</string>
+    <string name="how_get_loan">To get a loan, contact the bank or \n\nuse the bank\'s application.</string>
 </resources>

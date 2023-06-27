@@ -119,6 +119,7 @@ class LoanDetailsFragment : Fragment() {
             progressBar.isVisible = true
             tvError.isVisible = false
 
+            tvGet.isVisible = false
             tvStatus.isVisible = false
             amountTitle.isVisible = false
             tvAmount.isVisible = false
@@ -162,11 +163,23 @@ class LoanDetailsFragment : Fragment() {
 
             tvStatus.text = loan.status.toString()
             when (loan.status) {
-                LoanStatus.APPROVED -> tvStatus.setTextColor(ColorStateList.valueOf(Color.GREEN))
+                LoanStatus.APPROVED -> {
+                    tvGet.isVisible = true
+                    tvGet.text = getString(R.string.how_get_loan)
 
-                LoanStatus.REJECTED -> tvStatus.setTextColor(ColorStateList.valueOf(Color.RED))
+                    tvStatus.setTextColor(ColorStateList.valueOf(Color.GREEN))
+                }
 
-                LoanStatus.REGISTERED -> tvStatus.setTextColor(ColorStateList.valueOf(Color.BLACK))
+                LoanStatus.REJECTED -> {
+                    tvGet.isVisible = false
+                    tvStatus.setTextColor(ColorStateList.valueOf(Color.RED))
+                }
+
+                LoanStatus.REGISTERED -> {
+                    tvGet.isVisible = true
+                    tvGet.text = getString(R.string.status_registered)
+                    tvStatus.setTextColor(ColorStateList.valueOf(Color.BLACK))
+                }
             }
             tvAmount.text = loan.amount.toString()
             tvDate.text = loan.date.format(formatter)
@@ -182,7 +195,7 @@ class LoanDetailsFragment : Fragment() {
         with(binding) {
             progressBar.isVisible = false
             tvError.isVisible = true
-
+            tvGet.isVisible = false
             tvStatus.isVisible = false
             amountTitle.isVisible = false
             tvAmount.isVisible = false

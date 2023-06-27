@@ -111,11 +111,16 @@ class LoansFragment : Fragment() {
             bUpdate.isVisible = false
             progressBar.isVisible = true
             tvError.isVisible = false
+            tvNoLoans.isVisible = false
         }
     }
 
     private fun applyContentState(loans: List<Loan>) {
         loanAdapter?.submitList(loans)
+
+        if (loanAdapter?.itemCount == 0) {
+            binding.tvNoLoans.isVisible = true
+        }
 
         with(binding) {
             recyclerView.isVisible = true
@@ -133,6 +138,7 @@ class LoansFragment : Fragment() {
             bUpdate.isVisible = false
             progressBar.isVisible = false
             tvError.isVisible = true
+            tvNoLoans.isVisible = false
         }
 
         when (errorType) {
