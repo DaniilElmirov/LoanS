@@ -153,10 +153,14 @@ class RegistrationFragment : Fragment() {
     }
 
     private fun showInvalidInputError() {
-        binding.etName.hint = getString(R.string.error_invalid_input_text)
-        binding.etName.setHintTextColor(ColorStateList.valueOf(Color.RED))
+        with(binding) {
+            tvError.isVisible = false
 
-        binding.etPassword.hint = getString(R.string.error_invalid_input_text)
-        binding.etPassword.setHintTextColor(ColorStateList.valueOf(Color.RED))
+            etName.hint = getString(R.string.error_invalid_input_text)
+            etName.setHintTextColor(ColorStateList.valueOf(Color.RED))
+
+            etPassword.hint = getString(R.string.error_invalid_input_text)
+            etPassword.setHintTextColor(ColorStateList.valueOf(Color.RED))
+        }
     }
 }
