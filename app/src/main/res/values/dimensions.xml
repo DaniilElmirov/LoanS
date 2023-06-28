@@ -3,4 +3,7 @@
     <dimen name="margin_20">20dp</dimen>
     <dimen name="margin_40">40dp</dimen>
     <dimen name="margin_8">8dp</dimen>
+    <dimen name="padding_16">16dp</dimen>
+    <dimen name="radius_16">16dp</dimen>
+    <dimen name="elevation_8">8dp</dimen>
 </resources>
