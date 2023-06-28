@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
-import retrofit2.Response
 
 class LoanRemoteDataSourceImplTest {
 
@@ -34,9 +33,6 @@ class LoanRemoteDataSourceImplTest {
     private val loanConditions = Data.loanConditions
     private val loanConditionsModel = Data.loanConditionsModel
 
-    private val responseCreate = Response.success(loanModel)
-    private val responseGetLoanConditions = Response.success(loanConditionsModel)
-
     @Test
     fun `create EXPECT loan`() = runTest {
         val dispatcher = UnconfinedTestDispatcher(testScheduler)
@@ -50,7 +46,7 @@ class LoanRemoteDataSourceImplTest {
 
         whenever(loanConverter(loanModel)) doReturn loan
         whenever(loanRequestConverter(loanRequest)) doReturn loanRequestModel
-        whenever(api.create(token, loanRequestModel)) doReturn responseCreate
+        whenever(api.create(token, loanRequestModel)) doReturn loanModel
 
         val expected = loan
         val actual = dataSource.create(token, loanRequest)
@@ -70,7 +66,7 @@ class LoanRemoteDataSourceImplTest {
         )
 
         whenever(loanConditionsConverter(loanConditionsModel)) doReturn loanConditions
-        whenever(api.getLoanConditions(token)) doReturn responseGetLoanConditions
+        whenever(api.getLoanConditions(token)) doReturn loanConditionsModel
 
         val expected = loanConditions
         val actual = dataSource.getLoanConditions(token)

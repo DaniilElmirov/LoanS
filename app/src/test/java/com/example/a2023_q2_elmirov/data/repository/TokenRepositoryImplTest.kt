@@ -43,4 +43,11 @@ class TokenRepositoryImplTest {
 
         verify(dataSource).set(accessToken)
     }
+
+    @Test
+    fun `delete EXPECT delete`() {
+        repository.delete()
+
+        verify(dataSource).delete()
+    }
 }

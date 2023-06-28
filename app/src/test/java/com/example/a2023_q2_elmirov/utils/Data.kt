@@ -18,6 +18,7 @@ import java.time.LocalDateTime
 
 object Data {
     val auth = Auth(name = "NAME", password = "PASSWORD")
+    val invalidAuth = Auth(name = "", password = "")
     val authModel = AuthModel(name = "NAME", password = "PASSWORD")
 
     val user = User(name = "USER", role = UserRole.USER)

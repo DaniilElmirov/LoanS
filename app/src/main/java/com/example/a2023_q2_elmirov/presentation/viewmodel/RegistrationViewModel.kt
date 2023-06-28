@@ -73,7 +73,7 @@ class RegistrationViewModel @Inject constructor(
                 val token = loginUseCase(auth)
                 setTokenUseCase(AccessToken(token))
 
-                openUserOptions()
+                router.openUserOptions()
             }
         }
 
@@ -87,9 +87,5 @@ class RegistrationViewModel @Inject constructor(
             result = false
 
         return result
-    }
-
-    private fun openUserOptions() {
-        router.openUserOptions()
     }
 }
