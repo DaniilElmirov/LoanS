@@ -133,13 +133,7 @@ class RegistrationFragment : Fragment() {
 
             HTTP400 -> showUserExistError()
 
-            HTTP401 -> showUnknownError()
-
-            HTTP403 -> showUnknownError()
-
-            HTTP404 -> showUnknownError()
-
-            UNKNOWN -> showUnknownError()
+            HTTP401, HTTP403, HTTP404, UNKNOWN  -> showUnknownError()
 
             INVALID -> showInvalidInputError()
         }

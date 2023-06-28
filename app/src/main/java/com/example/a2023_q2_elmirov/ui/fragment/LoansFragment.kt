@@ -111,6 +111,7 @@ class LoansFragment : Fragment() {
             bUpdate.isVisible = false
             progressBar.isVisible = true
             tvError.isVisible = false
+            bError.isVisible = false
             tvNoLoans.isVisible = false
         }
     }
@@ -129,6 +130,7 @@ class LoansFragment : Fragment() {
             bUpdate.isVisible = true
             progressBar.isVisible = false
             tvError.isVisible = false
+            bError.isVisible = false
         }
     }
 
@@ -138,6 +140,7 @@ class LoansFragment : Fragment() {
             bUpdate.isVisible = false
             progressBar.isVisible = false
             tvError.isVisible = true
+            bError.isVisible = true
             tvNoLoans.isVisible = false
         }
 
@@ -153,14 +156,35 @@ class LoansFragment : Fragment() {
     }
 
     private fun showInternetError() {
-        binding.tvError.text = getString(R.string.error_internet_text)
+        with(binding) {
+            tvError.text = getString(R.string.error_internet_text)
+
+            bError.text = getString(R.string.try_again)
+            bError.setOnClickListener {
+                viewModel.getAll()
+            }
+        }
     }
 
     private fun showLoginAgainError() {
-        binding.tvError.text = getString(R.string.error_http403_text)
+        with(binding) {
+            tvError.text = getString(R.string.error_http403_text)
+
+            bError.text = getString(R.string.login_again)
+            bError.setOnClickListener {
+                viewModel.loginAgain()
+            }
+        }
     }
 
     private fun showUnknownError() {
-        binding.tvError.text = getString(R.string.error_unknown_text)
+        with(binding) {
+            tvError.text = getString(R.string.error_unknown_text)
+
+            bError.text = getString(R.string.b_ok_text)
+            bError.setOnClickListener {
+                viewModel.backToUserOptions()
+            }
+        }
     }
 }

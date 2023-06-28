@@ -27,7 +27,6 @@
     <string name="status_approved">APPROVED</string>
     <string name="status_registered">Your loan application has been registered.\n\nExpect a decision.</string>
     <string name="status_rejected">REJECTED</string>
-    <string name="error_invalid_input_amount">Amount must be in range 1 to %s</string>
     <string name="b_ok_text">OK</string>
     <string name="update_text">UPDATE</string>
     <string name="amount_title">Loan amount:</string>

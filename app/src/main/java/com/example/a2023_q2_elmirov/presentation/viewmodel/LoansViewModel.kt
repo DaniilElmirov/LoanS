@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.a2023_q2_elmirov.domain.entity.ErrorType
+import com.example.a2023_q2_elmirov.domain.usecase.DeleteTokenUseCase
 import com.example.a2023_q2_elmirov.domain.usecase.GetAllLoansUseCase
 import com.example.a2023_q2_elmirov.domain.usecase.GetTokenUseCase
 import com.example.a2023_q2_elmirov.presentation.router.LoansRouter
@@ -12,12 +13,16 @@ import com.example.a2023_q2_elmirov.presentation.state.LoansState
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
+import java.net.ConnectException
+import java.net.NoRouteToHostException
+import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import javax.inject.Inject
 
 class LoansViewModel @Inject constructor(
     private val getAllLoansUseCase: GetAllLoansUseCase,
     private val getTokenUseCase: GetTokenUseCase,
+    private val deleteTokenUseCase: DeleteTokenUseCase,
     private val router: LoansRouter,
 ) : ViewModel() {
 
@@ -26,7 +31,12 @@ class LoansViewModel @Inject constructor(
 
     private val handleError = CoroutineExceptionHandler { _, exception ->
         when (exception) {
-            is UnknownHostException -> _state.value = LoansState.Error(ErrorType.INTERNET)
+            is UnknownHostException,
+            is ConnectException,
+            is NoRouteToHostException,
+            is SocketTimeoutException,
+            -> _state.value = LoansState.Error(ErrorType.INTERNET)
+
             is HttpException -> {
                 when {
                     (exception.code() == 400) ->
@@ -63,5 +73,14 @@ class LoansViewModel @Inject constructor(
 
     fun openLoanDetails(loanId: Long) {
         router.openLoanDetails(loanId)
+    }
+
+    fun loginAgain() {
+        deleteTokenUseCase()
+        router.backToEntry()
+    }
+
+    fun backToUserOptions() {
+        router.backToUerOptions()
     }
 }

@@ -15,6 +15,9 @@ import com.example.a2023_q2_elmirov.presentation.state.RegistrationState
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
+import java.net.ConnectException
+import java.net.NoRouteToHostException
+import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import javax.inject.Inject
 
@@ -30,7 +33,12 @@ class RegistrationViewModel @Inject constructor(
 
     private val handleError = CoroutineExceptionHandler { _, exception ->
         when (exception) {
-            is UnknownHostException -> _state.value = RegistrationState.Error(ErrorType.INTERNET)
+            is UnknownHostException,
+            is ConnectException,
+            is NoRouteToHostException,
+            is SocketTimeoutException,
+            -> _state.value = RegistrationState.Error(ErrorType.INTERNET)
+
             is HttpException -> {
                 when {
                     //TODO спросить как правильно сбросить state
