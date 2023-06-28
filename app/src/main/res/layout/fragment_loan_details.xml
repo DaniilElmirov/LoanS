@@ -7,9 +7,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center|top"
-        android:layout_marginTop="@dimen/margin_20">
+        android:paddingVertical="@dimen/padding_16">
 
         <TextView
             android:id="@+id/tv_status"
@@ -159,14 +159,31 @@
             tools:text="sdfpijsdkipfsd" />
 
         <TextView
-            android:id="@+id/tv_get"
+            android:id="@+id/get_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_20"
-            android:layout_marginTop="@dimen/margin_20"
+            android:layout_marginTop="@dimen/margin_40"
+            android:gravity="center"
+            android:text="@string/get_money"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/phone_number_title" />
+
+        <TextView
+            android:id="@+id/tv_get"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_20"
+            android:autoLink="phone"
+            android:gravity="center"
+            android:linksClickable="true"
+            android:text="@string/bank_number"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/get_title" />
 
         <ProgressBar
             android:id="@+id/progress_bar"

@@ -37,11 +37,13 @@
     <string name="phone_number_title">Номер телефона:</string>
     <string name="prev">НАЗАД</string>
     <string name="next">ВПЕРЕД</string>
-    <string name="loan_manual">КАК ОФОРМИТЬ ЗАЯВКУ?\n\n1) Нажмите на кнопку \"ОФОРМИТЬ КРЕДИТ\"\n\n2) Введите данные\n\n3) Ожидайте подтверждения</string>
+    <string name="loan_manual">КАК ОФОРМИТЬ ЗАЯВКУ?\n\n1) Нажмите на кнопку \"ОФОРМИТЬ ЗАЯВКУ\"\n\n2) Введите данные\n\n3) Ожидайте подтверждения</string>
     <string name="loans_manual">КАК ПОСМОТРЕТЬ СВОИ ЗАЯВКИ?\n\n1) Нажмите на кнопку \"МОИ ЗАЯВКИ\"\n\n2) Пролистайте список\n\n3) Нажмите на заявку, чтобы получить полную информацию</string>
     <string name="no_loans">У вас не оформлено ни одной заявки</string>
-    <string name="how_get_loan">Чтобы получить деньги, посетите отделение банка или \n\nвоспользуйтесь банковским приложением.</string>
     <string name="amount">Сумма:</string>
     <string name="try_again">ПОПРОБОВАТЬ ЕЩЕ РАЗ</string>
     <string name="login_again">АВТОРИЗИРОВАТЬСЯ</string>
+    <string name="null_binding">Cannot access binding because it is null. Is the view visible?</string>
+    <string name="get_money">КАК ПОЛУЧИТЬ ДЕНЬГИ:</string>
+    <string name="bank_number">+78005553535</string>
 </resources>

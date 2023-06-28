@@ -39,9 +39,10 @@
     <string name="loan_manual">HOW TO APPLY LOAN\n\n1) Click on button \"APPLY LOAN\"\n\n2) Enter your data\n\n3) Expect a decision</string>
     <string name="loans_manual">HOW TO GET OWN LOANS\n\n1) Click on button \"MY LOANS\"\n\n2) Scroll your loans\n\n3) Click on loan to get full information</string>
     <string name="no_loans">You have not received any loans</string>
-    <string name="how_get_loan">To get a loan, contact the bank or \n\nuse the bank\'s application.</string>
     <string name="amount">Amount:</string>
     <string name="null_binding">Cannot access binding because it is null. Is the view visible?</string>
     <string name="try_again">TRY AGAIN</string>
     <string name="login_again">LOGIN AGAIN</string>
+    <string name="get_money">HOW TO GET MONEY:</string>
+    <string name="bank_number">+78005553535</string>
 </resources>
