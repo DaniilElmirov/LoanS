@@ -118,7 +118,7 @@ class LoanDetailsFragment : Fragment() {
         with(binding) {
             progressBar.isVisible = true
             tvError.isVisible = false
-
+            bError.isVisible = false
             tvGet.isVisible = false
             tvStatus.isVisible = false
             amountTitle.isVisible = false
@@ -141,27 +141,9 @@ class LoanDetailsFragment : Fragment() {
     private fun applyContentState(loan: Loan) {
         val formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm:ss")
 
+        setContentVisibility()
+
         with(binding) {
-            progressBar.isVisible = false
-            tvError.isVisible = false
-
-            tvStatus.isVisible = true
-            amountTitle.isVisible = true
-            tvAmount.isVisible = true
-            dateTitle.isVisible = true
-            tvDate.isVisible = true
-            firstNameTitle.isVisible = true
-            tvFirstName.isVisible = true
-            lastNameTitle.isVisible = true
-            tvLastName.isVisible = true
-            percentTitle.isVisible = true
-            tvPercent.isVisible = true
-            periodTitle.isVisible = true
-            tvPeriod.isVisible = true
-            phoneNumberTitle.isVisible = true
-            tvPhoneNumber.isVisible = true
-
-            tvStatus.text = loan.status.toString()
             when (loan.status) {
                 LoanStatus.APPROVED -> {
                     tvGet.isVisible = true
@@ -181,6 +163,8 @@ class LoanDetailsFragment : Fragment() {
                     tvStatus.setTextColor(ColorStateList.valueOf(Color.BLACK))
                 }
             }
+
+            tvStatus.text = loan.status.toString()
             tvAmount.text = loan.amount.toString()
             tvDate.text = loan.date.format(formatter)
             tvFirstName.text = loan.firstName
@@ -192,9 +176,50 @@ class LoanDetailsFragment : Fragment() {
     }
 
     private fun applyErrorState(errorType: ErrorType) {
+
+        setErrorVisibility()
+
+        when (errorType) {
+            INTERNET -> showInternetError()
+
+            HTTP403 -> showLoginAgainError()
+
+            HTTP404 -> showNotFoundError()
+
+            HTTP400, HTTP401, UNKNOWN -> showUnknownError()
+
+            INVALID -> Unit
+        }
+    }
+
+    private fun setContentVisibility() {
+        with(binding) {
+            progressBar.isVisible = false
+            tvError.isVisible = false
+            bError.isVisible = false
+            tvStatus.isVisible = true
+            amountTitle.isVisible = true
+            tvAmount.isVisible = true
+            dateTitle.isVisible = true
+            tvDate.isVisible = true
+            firstNameTitle.isVisible = true
+            tvFirstName.isVisible = true
+            lastNameTitle.isVisible = true
+            tvLastName.isVisible = true
+            percentTitle.isVisible = true
+            tvPercent.isVisible = true
+            periodTitle.isVisible = true
+            tvPeriod.isVisible = true
+            phoneNumberTitle.isVisible = true
+            tvPhoneNumber.isVisible = true
+        }
+    }
+
+    private fun setErrorVisibility() {
         with(binding) {
             progressBar.isVisible = false
             tvError.isVisible = true
+            bError.isVisible = true
             tvGet.isVisible = false
             tvStatus.isVisible = false
             amountTitle.isVisible = false
@@ -212,33 +237,49 @@ class LoanDetailsFragment : Fragment() {
             phoneNumberTitle.isVisible = false
             tvPhoneNumber.isVisible = false
         }
-
-        when (errorType) {
-            INTERNET -> showInternetError()
-
-            HTTP403 -> showLoginAgainError()
-
-            HTTP404 -> showNotFoundError()
-
-            HTTP400, HTTP401, UNKNOWN -> showUnknownError()
-
-            INVALID -> Unit
-        }
     }
 
     private fun showInternetError() {
-        binding.tvError.text = getString(R.string.error_internet_text)
+        with(binding) {
+            tvError.text = getString(R.string.error_internet_text)
+
+            bError.text = getString(R.string.try_again)
+            bError.setOnClickListener {
+                getLoan()
+            }
+        }
     }
 
     private fun showLoginAgainError() {
-        binding.tvError.text = getString(R.string.error_http403_text)
+        with(binding) {
+            tvError.text = getString(R.string.error_http403_text)
+
+            bError.text = getString(R.string.login_again)
+            bError.setOnClickListener {
+                viewModel.loginAgain()
+            }
+        }
     }
 
     private fun showNotFoundError() {
-        binding.tvError.text = getString(R.string.error_http404_loan_text)
+        with(binding) {
+            tvError.text = getString(R.string.error_http404_loan_text)
+
+            bError.text = getString(R.string.b_ok_text)
+            bError.setOnClickListener {
+                viewModel.backToLoans()
+            }
+        }
     }
 
     private fun showUnknownError() {
-        binding.tvError.text = getString(R.string.error_unknown_text)
+        with(binding) {
+            tvError.text = getString(R.string.error_unknown_text)
+
+            bError.text = getString(R.string.b_ok_text)
+            bError.setOnClickListener {
+                viewModel.backToLoans()
+            }
+        }
     }
 }

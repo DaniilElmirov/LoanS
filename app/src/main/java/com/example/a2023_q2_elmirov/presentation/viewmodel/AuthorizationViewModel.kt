@@ -13,8 +13,9 @@ import com.example.a2023_q2_elmirov.presentation.router.AuthorizationRouter
 import com.example.a2023_q2_elmirov.presentation.state.AuthorizationState
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
-import java.lang.NullPointerException
+import java.net.ConnectException
+import java.net.NoRouteToHostException
+import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import javax.inject.Inject
 
@@ -29,24 +30,12 @@ class AuthorizationViewModel @Inject constructor(
 
     private val handleError = CoroutineExceptionHandler { _, exception ->
         when (exception) {
-            is UnknownHostException -> _state.value = AuthorizationState.Error(ErrorType.INTERNET)
-            is HttpException -> {
-                when {
-                    //TODO спросить как правильно сбросить state
-                    //Надо ли пытаться поймать код ошибки из body по коду?
-                    (exception.code() == 400) ->
-                        _state.value = AuthorizationState.Error(ErrorType.HTTP400)
+            is UnknownHostException,
+            is ConnectException,
+            is NoRouteToHostException,
+            is SocketTimeoutException,
+            -> _state.value = AuthorizationState.Error(ErrorType.INTERNET)
 
-                    (exception.code() == 401) ->
-                        _state.value = AuthorizationState.Error(ErrorType.HTTP401)
-
-                    (exception.code() == 403) ->
-                        _state.value = AuthorizationState.Error(ErrorType.HTTP403)
-
-                    (exception.code() == 404) ->
-                        _state.value = AuthorizationState.Error(ErrorType.HTTP404)
-                }
-            }
             is NullPointerException -> _state.value = AuthorizationState.Error(ErrorType.HTTP404)
 
             else -> _state.value = AuthorizationState.Error(ErrorType.UNKNOWN)

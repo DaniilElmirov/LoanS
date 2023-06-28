@@ -142,6 +142,6 @@ class ApplyLoanViewModel @Inject constructor(
 
     fun loginAgain() {
         deleteTokenUseCase()
-        router.backToLogin()
+        router.backToEntry()
     }
 }

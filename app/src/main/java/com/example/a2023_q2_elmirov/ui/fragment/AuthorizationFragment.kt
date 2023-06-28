@@ -131,15 +131,9 @@ class AuthorizationFragment : Fragment() {
         when (errorType) {
             INTERNET -> showInternetError()
 
-            HTTP400 -> showUnknownError()
-
-            HTTP401 -> showUnknownError()
-
-            HTTP403 -> showUnknownError()
-
             HTTP404 -> showNotFoundError()
 
-            UNKNOWN -> showUnknownError()
+            HTTP400, HTTP401, HTTP403, UNKNOWN -> showUnknownError()
 
             INVALID -> showInvalidInputError()
         }
