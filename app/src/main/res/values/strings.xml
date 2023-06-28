@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">2023_q2_elmirov</string>
+    <string name="app_name">LoanS</string>
     <string name="sign_up_text">SIGN UP</string>
     <string name="et_name_hint">Enter name</string>
     <string name="et_password_hint">Enter password</string>

@@ -6,17 +6,19 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/b_select_registration"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/margin_20"
-        android:text="@string/sign_up_text" />
-
-    <Button
         android:id="@+id/b_select_authorization"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_20"
         android:layout_marginTop="@dimen/margin_20"
         android:text="@string/sign_in_text" />
+
+    <Button
+        android:id="@+id/b_select_registration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_20"
+        android:backgroundTint="@color/screen_background"
+        android:text="@string/sign_up_text"
+        android:textColor="@color/purple_500" />
 </LinearLayout>
