@@ -75,7 +75,6 @@ class ApplyLoanFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupSeekBar()
-        setSeekBarProgress()
 
         initListeners()
 
@@ -104,12 +103,6 @@ class ApplyLoanFragment : Fragment() {
         })
     }
 
-    private fun setSeekBarProgress() {
-        viewModel.amount.observe(viewLifecycleOwner) {
-            binding.sbAmount.progress = it
-        }
-    }
-
     private fun initListeners() {
         with(binding) {
             bApplyLoan.setOnClickListener {
@@ -129,6 +122,11 @@ class ApplyLoanFragment : Fragment() {
 
     private fun initObservers() {
         viewModel.state.observe(viewLifecycleOwner, ::applyState)
+        viewModel.amount.observe(viewLifecycleOwner, ::setSeekBarProgress)
+    }
+
+    private fun setSeekBarProgress(progress:Int) {
+        binding.sbAmount.progress = progress
     }
 
     private fun applyState(state: ApplyLoanState) {
