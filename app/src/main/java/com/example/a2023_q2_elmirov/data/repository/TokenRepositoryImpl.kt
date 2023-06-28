@@ -15,4 +15,8 @@ class TokenRepositoryImpl @Inject constructor(
     override fun set(token: AccessToken) {
         tokenLocalDataSource.set(token)
     }
+
+    override fun delete() {
+        tokenLocalDataSource.delete()
+    }
 }

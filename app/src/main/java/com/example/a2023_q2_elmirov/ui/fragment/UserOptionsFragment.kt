@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.a2023_q2_elmirov.LoansApplication
+import com.example.a2023_q2_elmirov.R
 import com.example.a2023_q2_elmirov.databinding.FragmentUserOptionsBinding
 import com.example.a2023_q2_elmirov.presentation.viewmodel.UserOptionsViewModel
 import com.example.a2023_q2_elmirov.presentation.viewmodel.ViewModelFactory
@@ -18,7 +19,7 @@ class UserOptionsFragment : Fragment() {
     private var _binding: FragmentUserOptionsBinding? = null
     private val binding
         get() = checkNotNull(_binding) {
-            "Cannot access binding because it is null. Is the view visible?"
+            getString(R.string.null_binding)
         }
 
     @Inject

@@ -32,7 +32,7 @@ class LoanRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun create(token: String, loanRequest: LoanRequest): Loan =
         withContext(dispatcherIo) {
-            loanConverter(api.create(token, loanRequestConverter(loanRequest)).body()!!)
+            loanConverter(api.create(token, loanRequestConverter(loanRequest)))
         }
 
     override suspend fun getLoanConditions(token: String): LoanConditions =

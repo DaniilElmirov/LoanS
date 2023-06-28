@@ -42,4 +42,7 @@
     <string name="no_loans">You have not received any loans</string>
     <string name="how_get_loan">To get a loan, contact the bank or \n\nuse the bank\'s application.</string>
     <string name="amount">Amount:</string>
+    <string name="null_binding">Cannot access binding because it is null. Is the view visible?</string>
+    <string name="try_again">TRY AGAIN</string>
+    <string name="login_again">LOGIN AGAIN</string>
 </resources>

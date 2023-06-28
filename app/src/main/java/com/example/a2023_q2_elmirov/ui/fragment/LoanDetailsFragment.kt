@@ -51,7 +51,7 @@ class LoanDetailsFragment : Fragment() {
     private var _binding: FragmentLoanDetailsBinding? = null
     private val binding
         get() = checkNotNull(_binding) {
-            "Cannot access binding because it is null. Is the view visible?"
+            getString(R.string.null_binding)
         }
 
     @Inject

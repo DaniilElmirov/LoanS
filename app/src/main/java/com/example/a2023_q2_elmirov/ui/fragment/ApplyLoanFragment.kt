@@ -43,7 +43,7 @@ class ApplyLoanFragment : Fragment() {
     private var _binding: FragmentApplyLoanBinding? = null
     private val binding
         get() = checkNotNull(_binding) {
-            "Cannot access binding because it is null. Is the view visible?"
+            getString(R.string.null_binding)
         }
 
     @Inject
@@ -125,7 +125,7 @@ class ApplyLoanFragment : Fragment() {
         viewModel.amount.observe(viewLifecycleOwner, ::setSeekBarProgress)
     }
 
-    private fun setSeekBarProgress(progress:Int) {
+    private fun setSeekBarProgress(progress: Int) {
         binding.sbAmount.progress = progress
     }
 
@@ -146,6 +146,7 @@ class ApplyLoanFragment : Fragment() {
     private fun applyLoadingState() {
         with(binding) {
             tvError.isVisible = false
+            bError.isVisible = false
 
             tvResult.isVisible = false
             bOk.isVisible = false
@@ -180,6 +181,7 @@ class ApplyLoanFragment : Fragment() {
     private fun applyContentState(loanConditions: LoanConditions) {
         with(binding) {
             tvError.isVisible = false
+            bError.isVisible = false
 
             tvResult.isVisible = false
             bOk.isVisible = false
@@ -217,37 +219,8 @@ class ApplyLoanFragment : Fragment() {
     }
 
     private fun applyResultState(status: LoanStatus) {
-        with(binding) {
-            tvError.isVisible = false
 
-            tvResult.isVisible = true
-            bOk.isVisible = true
-
-            tvConditionsTitle.isVisible = false
-
-            tvMaxAmountTitle.isVisible = false
-            tvMaxAmount.isVisible = false
-
-            tvPercentTitle.isVisible = false
-            tvPercent.isVisible = false
-
-            tvPeriodTitle.isVisible = false
-            tvPeriod.isVisible = false
-
-            tvEnterDataTitle.isVisible = false
-
-            amount.isVisible = false
-            sbAmountText.isVisible = false
-            sbAmount.isVisible = false
-
-            tilFirstName.isVisible = false
-            tilLastName.isVisible = false
-            tilPhoneNumber.isVisible = false
-
-            bApplyLoan.isVisible = false
-
-            progressBar.isVisible = false
-        }
+        setResultVisibility()
 
         when (status) {
             APPROVED -> showApprovedStatus()
@@ -284,8 +257,59 @@ class ApplyLoanFragment : Fragment() {
     }
 
     private fun applyErrorState(errorType: ErrorType) {
+
+        setErrorVisibility()
+
+        when (errorType) {
+            INTERNET -> showInternetError()
+
+            HTTP403 -> showLoginAgainError()
+
+            HTTP400, HTTP401, HTTP404, UNKNOWN -> showUnknownError()
+
+            INVALID -> showInvalidError()
+        }
+    }
+
+    private fun setResultVisibility() {
+        with(binding) {
+            tvError.isVisible = false
+            bError.isVisible = false
+
+            tvResult.isVisible = true
+            bOk.isVisible = true
+
+            tvConditionsTitle.isVisible = false
+
+            tvMaxAmountTitle.isVisible = false
+            tvMaxAmount.isVisible = false
+
+            tvPercentTitle.isVisible = false
+            tvPercent.isVisible = false
+
+            tvPeriodTitle.isVisible = false
+            tvPeriod.isVisible = false
+
+            tvEnterDataTitle.isVisible = false
+
+            amount.isVisible = false
+            sbAmountText.isVisible = false
+            sbAmount.isVisible = false
+
+            tilFirstName.isVisible = false
+            tilLastName.isVisible = false
+            tilPhoneNumber.isVisible = false
+
+            bApplyLoan.isVisible = false
+
+            progressBar.isVisible = false
+        }
+    }
+
+    private fun setErrorVisibility() {
         with(binding) {
             tvError.isVisible = true
+            bError.isVisible = true
 
             tvResult.isVisible = false
             bOk.isVisible = false
@@ -314,21 +338,38 @@ class ApplyLoanFragment : Fragment() {
             bApplyLoan.isVisible = false
 
             progressBar.isVisible = false
+        }
+    }
 
-            when (errorType) {
-                INTERNET -> tvError.text = getString(R.string.error_internet_text)
+    private fun showInternetError() {
+        with(binding) {
+            tvError.text = getString(R.string.error_internet_text)
 
-                HTTP400 -> Unit
+            bError.text = getString(R.string.try_again)
+            bError.setOnClickListener {
+                viewModel.resetInternet()
+            }
+        }
+    }
 
-                HTTP401 -> Unit
+    private fun showLoginAgainError() {
+        with(binding) {
+            tvError.text = getString(R.string.error_http403_text)
 
-                HTTP403 -> tvError.text = getString(R.string.error_http403_text)
+            bError.text = getString(R.string.login_again)
+            bError.setOnClickListener {
+                viewModel.loginAgain()
+            }
+        }
+    }
 
-                HTTP404 -> Unit
+    private fun showUnknownError() {
+        with(binding) {
+            tvError.text = getString(R.string.error_unknown_text)
 
-                UNKNOWN -> tvError.text = getString(R.string.error_unknown_text)
-
-                INVALID -> showInvalidError()
+            bError.text = getString(R.string.b_ok_text)
+            bError.setOnClickListener {
+                viewModel.backToUserOptions()
             }
         }
     }
@@ -336,6 +377,7 @@ class ApplyLoanFragment : Fragment() {
     private fun showInvalidError() {
         with(binding) {
             tvError.isVisible = false
+            bError.isVisible = false
 
             tvConditionsTitle.isVisible = true
 

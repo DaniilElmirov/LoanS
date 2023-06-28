@@ -7,4 +7,6 @@ interface TokenRepository {
     fun get(): AccessToken
 
     fun set(token: AccessToken)
+
+    fun delete()
 }

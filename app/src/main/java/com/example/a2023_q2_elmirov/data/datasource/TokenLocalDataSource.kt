@@ -10,6 +10,8 @@ interface TokenLocalDataSource {
     fun get(): AccessToken
 
     fun set(token: AccessToken)
+
+    fun delete()
 }
 
 class TokenLocalDataSourceImpl @Inject constructor(
@@ -34,6 +36,13 @@ class TokenLocalDataSourceImpl @Inject constructor(
         application.getSharedPreferences(ACCESS_TOKEN_NAME, Context.MODE_PRIVATE)
             .edit()
             .putString(ACCESS_TOKEN_KEY, token.accessToken)
+            .apply()
+    }
+
+    override fun delete() {
+        application.getSharedPreferences(ACCESS_TOKEN_NAME, Context.MODE_PRIVATE)
+            .edit()
+            .putString(ACCESS_TOKEN_KEY, DEFAULT_VALUE)
             .apply()
     }
 }

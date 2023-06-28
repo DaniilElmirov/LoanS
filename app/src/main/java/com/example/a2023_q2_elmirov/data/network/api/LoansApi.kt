@@ -24,7 +24,7 @@ interface LoansApi {
     suspend fun create(
         @Header("Authorization") token: String,
         @Body loanRequestModel: LoanRequestModel,
-    ): Response<LoanModel>
+    ): LoanModel
 
     @GET("loans/conditions")
     suspend fun getLoanConditions(@Header("Authorization") token: String): Response<LoanConditionsModel>
