@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ЗаймЫ</string>
+    <string name="sign_up_text">РЕГИСТРАЦИЯ</string>
+    <string name="et_name_hint">Введите имя</string>
+    <string name="et_password_hint">Введите пароль</string>
+    <string name="sign_in_text">АВТОРИЗАЦИЯ</string>
+    <string name="show_manual_text">ИНСТРУКЦИЯ</string>
+    <string name="apply_loan_text">ОФОРМИТЬ ЗАЯВКУ</string>
+    <string name="my_loans_text">МОИ ЗАЯВКИ</string>
+
+    <string name="error_internet_text">Проверьте соединение с интернетом</string>
+    <string name="error_http400_text">Пользователь с именем \"%s\" уже существует</string>
+    <string name="error_http403_text">Что-то пошло не так, попробуйте авторизироваться заново</string>
+    <string name="error_http404_text">Проверьте введенные данные</string>
+    <string name="error_http404_loan_text">Заявка не найдена, обновите список заявок</string>
+    <string name="error_unknown_text">Что-то пошло не так, скоро починим</string>
+    <string name="error_invalid_input_text">Это поле не может быть пустым</string>
+    <string name="conditions_title_text">УСЛОВИЯ КРЕДИТА:</string>
+    <string name="max_amount_title_text">Максимальная сумма:</string>
+    <string name="percent_title_text">Процент по кредиту:</string>
+    <string name="period_title_text">Длительность заема:</string>
+    <string name="enter_data_title_text">ВВЕДИТЕ СЛЕДУЮЩИЕ ДАННЫЕ:</string>
+    <string name="et_amount_hint">Введите количество</string>
+    <string name="et_first_name_hint">Введите имя</string>
+    <string name="et_last_name_hint">Введите фамилию</string>
+    <string name="et_phone_number_hint">Введите номер телефона</string>
+    <string name="status_approved">ОДОБРЕНО</string>
+    <string name="status_registered">Ваша заявка зарегистрирована.\n\nОжидайте подтверждения.</string>
+    <string name="status_rejected">ОТКЛОНЕНО</string>
+    <string name="b_ok_text">OK</string>
+    <string name="update_text">ОБНОВИТЬ</string>
+    <string name="amount_title">Сумма:</string>
+    <string name="issue_date_title">Дата создания:</string>
+    <string name="first_name_title">Имя:</string>
+    <string name="last_name_title">Фамилия:</string>
+    <string name="phone_number_title">Номер телефона:</string>
+    <string name="prev">НАЗАД</string>
+    <string name="next">ВПЕРЕД</string>
+    <string name="loan_manual">КАК ОФОРМИТЬ ЗАЯВКУ?\n\n1) Нажмите на кнопку \"ОФОРМИТЬ КРЕДИТ\"\n\n2) Введите данные\n\n3) Ожидайте подтверждения</string>
+    <string name="loans_manual">КАК ПОСМОТРЕТЬ СВОИ ЗАЯВКИ?\n\n1) Нажмите на кнопку \"МОИ ЗАЯВКИ\"\n\n2) Пролистайте список\n\n3) Нажмите на заявку, чтобы получить полную информацию</string>
+    <string name="no_loans">У вас не оформлено ни одной заявки</string>
+    <string name="how_get_loan">Чтобы получить деньги, посетите отделение банка или \n\nвоспользуйтесь банковским приложением.</string>
+    <string name="amount">Сумма:</string>
+    <string name="try_again">ПОПРОБОВАТЬ ЕЩЕ РАЗ</string>
+    <string name="login_again">АВТОРИЗИРОВАТЬСЯ</string>
+</resources>
