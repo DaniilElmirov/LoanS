@@ -1,7 +1,7 @@
 # LoanS
 
 **Проект в рамках ШИФТ курсов по направлению "Android"**
-<a href="https://drive.google.com/file/d/1m4Bgvw_e6rouLhYiAFvzywfNped0jRc_/view?usp=sharing" target="_blank">Link</a>
+
 [*Видео работы приложения*](https://drive.google.com/file/d/1m4Bgvw_e6rouLhYiAFvzywfNped0jRc_/view?usp=sharing)
 
 ## Функционал
